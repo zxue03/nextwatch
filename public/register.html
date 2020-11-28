@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body style="text-align: center">
+    <h2>Register</h2>
+    <form id="registerForm">
+      <label for="email">email</label>
+      <input type="text" id="email" name="email" required />
+      <br />
+      <br />
+      <label for="password">password</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <br />
+      <input type="submit" value="Register" />
+    </form>
+    <br />
+    <div id="result"></div>
+
+    <script>
+      const registerForm = document.getElementById("registerForm");
+      const result = document.getElementById("result");
+      const register = async (e) => {
+        e.preventDefault();
+        const url = "/api/user/register";
+        const data = {
+          email: registerForm.email.value,
+          password: registerForm.password.value,
+        };
+        const rawRes = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const res = await rawRes.json();
+        if (rawRes.status == 200) {
+          result.innerHTML =
+            "Successdully resgitered! Directing you to the login page...";
+          setTimeout(function () {
+            window.location.href = "/login.html";
+          }, 2500);
+        } else {
+          result.innerHTML = res.message;
+        }
+      };
+      registerForm.addEventListener("submit", register);
+    </script>
+  </body>
+</html>

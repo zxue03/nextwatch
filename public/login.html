@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body style="text-align: center">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="email">email</label>
+      <input type="text" id="email" name="email" required />
+      <br />
+      <br />
+      <label for="password">password</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <br />
+      <input type="submit" value="Login" />
+    </form>
+    <br />
+    <div id="result"></div>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+      const result = document.getElementById("result");
+      const login = async (e) => {
+        e.preventDefault();
+        const url = "/api/user/login";
+        const data = {
+          email: loginForm.email.value,
+          password: loginForm.password.value,
+        };
+        const rawRes = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const res = await rawRes.json();
+        if (rawRes.status == 200) {
+          result.innerHTML =
+            "Successfully logged in! Directing you to the home page";
+          console.log(res);
+          window.localStorage.setItem("movieAppToken", res.token);
+          setTimeout(function () {
+            window.location.href = "/home.html";
+          }, 2500);
+        } else {
+          result.innerHTML = res.message;
+        }
+      };
+      loginForm.addEventListener("submit", login);
+    </script>
+  </body>
+</html>

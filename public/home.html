@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body style="text-align: center">
+    <h2>Home</h2>
+    <div id="watchListDiv"></div>
+    <br />
+    <button id="logout">Logout</button>
+    <script>
+      const watchListDiv = document.getElementById("watchListDiv");
+      const logoutButton = document.getElementById("logout");
+      const getWatchList = async () => {
+        const token = window.localStorage.getItem("movieAppToken");
+        const rawRes = await fetch("/api/user/watchList", {
+          headers: {
+            "authorization": `Bearer ${token}`,
+          },
+        });
+        if (rawRes.status == 200) {
+          const res = await rawRes.json();
+          watchListDiv.innerHTML = "Your watchList: " + res.watchList;
+        } else {
+          watchListDiv.innerHTML = "Access Denied. Please log in first...";
+          setTimeout(function () {
+            window.location.href = "/login.html";
+          }, 3000);
+        }
+      };
+      getWatchList();
+
+      logoutButton.addEventListener("click", () => {
+        window.localStorage.removeItem("movieAppToken");
+        watchListDiv.innerHTML = "Logging you out...";
+        setTimeout(function () {
+          window.location.href = "/login.html";
+        }, 2500);
+      });
+    </script>
+  </body>
+</html>
