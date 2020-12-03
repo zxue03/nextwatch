@@ -6,6 +6,7 @@ function getConfig() {
         })
         .then((data) => {
             baseImageURL = data.images.base_url;
+            posterSize = data.images.poster_sizes[2];
             configData = data.images;
             configData = data.images;
             console.log('config:', data);
@@ -25,10 +26,17 @@ function runSearch(keyword) {
             console.log(data);
         })
 
-    url = "https://api.themoviedb.org/3/trending/movie/week?api_key=9aadfff8aa707747cec36dc03dfe8b0f";
+    url = "https://api.themoviedb.org/3/trending/movie/day?api_key=9aadfff8aa707747cec36dc03dfe8b0f";
     fetch(url)
         .then(results => results.json())
         .then((data) => {
+            var s, posterURL;
+            for (i = 0; i < data.results.length; i++) {
+                s = 'top' + i;
+                posterURL = baseImageURL + posterSize + data.results[i].poster_path;
+                document.getElementById(s).innerHTML = '<img src="' + posterURL + '">';
+            }
+
             console.log(data);
         })
 }
