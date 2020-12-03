@@ -3,11 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nextwatch: Home</title>
+    <title>Nextwatch - Recommendations</title>
     <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" type="text/css" href="general.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="recs.js"></script>
+    <style type="text/css">
+      .trending {
+        width: 80%;
+        background-color: #000000;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
 
+      }
+      
+      .trend-item {
+        padding-top: 10px;
+      }
+    </style>
   </head>
   <body style="text-align: center">    
     <header id="navbar">
@@ -32,10 +51,19 @@
         </div>
       </nav>
     </header>
+  
     <script src="nav.js"></script>
-
-    <h1>Home</h1>
     <div id="watchListDiv"></div>
+    <h2 class="trending">Trending</h2>
+    <div class="trending">
+      <script>
+        var s = "";
+        for (i = 0; i < 20; i++) {
+          s += '<div class="trend-item" id="top' + i + '"></div><br><br>';
+          document.write(s);
+        }
+      </script>
+    </div>
     <br />
     <button id="logout">Logout</button>
     <script>
