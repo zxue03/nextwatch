@@ -34,7 +34,7 @@ function runSearch(keyword) {
             for (i = 0; i < data.results.length; i++) {
                 s = 'top' + i;
                 posterURL = baseImageURL + posterSize + data.results[i].poster_path;
-                document.getElementById(s).innerHTML = '<img src="' + posterURL + '">';
+                document.getElementById(s).innerHTML = '<img class="trend-item" src="' + posterURL + '">';
             }
 
             console.log(data);

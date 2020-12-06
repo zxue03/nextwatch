@@ -24,7 +24,7 @@
       }
       
       .trend-item {
-        padding-top: 10px;
+        padding: 10px;
       }
       .logout-button {
     /* remove default behavior */
@@ -62,26 +62,37 @@
           <ul class="nav-links">
             <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
             <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+            <button id="logout">Logout</button>
+
           </ul>
         </div>
       </nav>
     </header>
   
     <script src="nav.js"></script>
+    <div class="search-container">
+      <form>
+        <select>        
+
+        </select>
+        <input type="text">
+        <input type="submit" value="Search">
+
+      </form>
+    </div>
     <div id="watchListDiv"></div>
+
     <h2 class="trending">Trending</h2>
     <div class="trending">
       <script>
         var s = "";
         for (i = 0; i < 20; i++) {
-          s += '<div class="trend-item" id="top' + i + '"></div><br><br>';
+          s += '<div id="top' + i + '"></div><br><br>';
           document.write(s);
         }
       </script>
     </div>
     <br />
-    <button id="logout">Logout</button>
     <script>
       const watchListDiv = document.getElementById("watchListDiv");
       const logoutButton = document.getElementById("logout");
