@@ -7,6 +7,50 @@
     <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" type="text/css" href="general.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <style type="text/css">
+
+    *:focus {outline:none !important}
+    .container-form {
+        width: 300px;
+        clear: both;
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+        margin-left: auto;
+        margin-right: auto;
+        color: #ffffff;
+        padding-bottom: 30px;
+    }
+
+    .container-form input {
+        width: 100%;
+        clear: both;
+    }
+    .rounded-input {
+        padding: 5px;
+        border-radius: 20px;
+        border: 1px solid rgb(19, 18, 18);
+        transition: .3s border-color;
+    }
+    .rounded-input:hover {
+        border: 1px solid #aaa;
+    }
+    .register-button {
+    /* remove default behavior */
+        appearance:none;
+        -webkit-appearance:none;
+    /* usual styles */
+        padding:10px;   
+        border:none;
+        background-color:#3F51B5;
+        color:#fff;
+        font-weight:600;
+        border-radius:5px;
+        width:10%; 
+    }
+    .register-button:hover {
+        border: 1px solid #aaa;
+    }
+    </style>
   </head>
   <body style="text-align: center">
     <header id="navbar">
@@ -34,19 +78,21 @@
     <script src="nav.js"></script>
     
     <h1>Register</h1>
+    <div class="container-form">
     <form id="registerForm">
-      <label for="email">email</label>
-      <input type="text" id="email" name="email" required />
+      <br />
+      <label for="email"></label>
+      <input placeholder="email..." type="text" id="email" name="email" class="rounded-input" required />
       <br />
       <br />
-      <label for="password">password</label>
-      <input type="password" id="password" name="password" required />
+      <label for="password"></label>
+      <input placeholder="password..." type="password" id="password" name="password" class="rounded-input" required />
       <br />
       <br />
       <div id="result"></div>
-
-      <input type="submit" value="Register" />
+      <input type="submit" class="register-button" value="Register" />
     </form>
+    </div>
     <div style="color: #ffffff">
       Already have an account? <br /><br />
       <a href="login.html" style="color: #7342A3">Login here</a>
