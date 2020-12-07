@@ -11,23 +11,32 @@
 
     *:focus {outline:none !important}
     .container-form {
-        width: 300px;
+        background-color: #1a1a1a;
+        width: 400px;
         clear: both;
-        padding-left: 1.4rem;
-        padding-right: 1.4rem;
+        margin-top: 25px;
         margin-left: auto;
         margin-right: auto;
         color: #ffffff;
-        padding-bottom: 30px;
-    }
+        padding: 30px 10px 30px 10px;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+      }
+
+      .big-logo {
+        height: 150px;
+        width: auto;
+        margin: 0px 10px 10px 10px;
+        padding-top: 25px;
+      }
 
     .container-form input {
-        width: 100%;
+        width: 225px;
         clear: both;
     }
     .rounded-input {
         padding: 5px;
-        border-radius: 20px;
+        border-radius: 15px;
         border: 1px solid rgb(19, 18, 18);
         transition: .3s border-color;
     }
@@ -41,7 +50,7 @@
     /* usual styles */
         padding:10px;   
         border:none;
-        background-color:#3F51B5;
+        background-color:#7342A3;
         color:#fff;
         font-weight:600;
         border-radius:5px;
@@ -50,9 +59,7 @@
     .register-button:hover {
         background-color: #aaa;
     }
-    A {
-      text-decoration: none;
-    }
+
     </style>
   </head>
   <body style="text-align: center">
@@ -80,9 +87,11 @@
     </header>
     <script src="nav.js"></script>
     
-    <h1>Register</h1>
     <div class="container-form">
-    <form id="registerForm">
+      <h1>Register</h1>
+
+      <img class="big-logo" src="assets/logo.png">
+      <form id="registerForm">
       <br />
       <label for="email"></label>
       <input placeholder="email..." type="text" id="email" name="email" class="rounded-input" required />
@@ -95,11 +104,12 @@
       <div id="result"></div>
       <input type="submit" class="register-button" value="Register" />
     </form>
-    </div>
     <div style="color: #ffffff">
+      <br />
       Already have an account? <br /><br />
       <a href="login.html" style="color: #7342A3">Login here</a>
     </div>
+  </div>
 
     <script>
       const registerForm = document.getElementById("registerForm");

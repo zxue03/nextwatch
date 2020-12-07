@@ -9,7 +9,32 @@
   <link rel="icon" href="assets/logo.png" />
   <link rel="stylesheet" type="text/css" href="general.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
+  <style type="text/css">
+    body {
+      background-color: #1a1a1a;
+    }
+    .about-container {
+      background-color: #1a1a1a;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px 10px 30px 10px;
+    }
+    h1, h2 {
+      margin-bottom: 10px;
+      color: #7342A3;
+    }
+    .reg-text, li {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    @media screen and (min-width: 700px) {
+      .about-container {
+        width: 60%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -37,7 +62,22 @@
   </header>
   <script src="nav.js"></script>
 
-  <div><h1 style="text-align: center;padding-top:10px;"><a href="register.html">Sign up here!</a></h1></div>
+  <div class="about-container">
+    <h1>About Nextwatch</h1>
+    <div class="reg-text">Nextwatch is the newest movie recommendation platform!
+         Instead of the boring old suggestions, we choose one of our ~vibes~
+         to find the next movie you should watch.
+    </div>
+  </div>
+  <div class="about-container">
+    <h2>Get Started</h2>
+    <ol class="reg-text" style="margin-left:25px">
+      <li>Create an account <a href="register.html">Sign up here!</a></li>
+      <li>Search for a movie</li>
+      <li>Pop some popcorn</li>
+      <li>Sit back, relax and ENJOY!</li>
+    </ol>
+  </div>
 </body>
 
 </html>

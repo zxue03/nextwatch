@@ -16,18 +16,21 @@
         margin-right: auto;
         padding: 30px 10px 30px 10px;
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
       }
 
       .big-logo {
-        width: 125px;
-        height: 125px;
+        height: 150px;
+        width: auto;
         margin: 0px 10px 10px 10px;
+        padding-top: 25px;
       }
 
       input {
         width: 225px;
         height: 30px;
         padding-left: 5px;
+        border-radius: 5px;
       }
 
       input[type=submit] {
@@ -35,7 +38,8 @@
         background-color: #7342A3;
         border-radius: 5px;
         height: 30px;
-        letter-spacing: .1em;
+        font-weight: bold;
+        color: #ffffff;
       }
       
       label {
@@ -47,9 +51,34 @@
   </head>
     
   <body style="text-align: center">
-    <h1>Login</h1>
+    <header id="navbar">
+      <nav class="nav-wrapper container">
+        <a href="index.html" class="home-link">
+          <img id="logo" src="assets/logo.png">
+          nextwatch
+        </a>
+  
+        <button type="button" class="nav-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+  
+        <div class="nav-menu">
+          <ul class="nav-links">
+            <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
+            <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <script src="nav.js"></script>
+    
     <div class="login-wrapper">
-    <img class="big-logo" src="assets/logo.png">
+      <h1>Login</h1>
+
+      <img class="big-logo" src="assets/logo.png">
     <form id="loginForm">
       <label for="email">Email</label>
       <br />
@@ -61,7 +90,7 @@
       <input type="password" id="password" name="password" required />
       <br />
       <br />
-      <input type="submit" value="LOGIN" />
+      <input type="submit" value="Login" />
     </form>
     <br />
     <div style="color: #ffffff">
