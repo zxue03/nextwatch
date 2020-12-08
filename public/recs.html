@@ -20,9 +20,13 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-
       }
-      
+      .search-container {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 10px 30px 10px;
+      }
       .trend-item {
         padding: 10px;
       }
@@ -41,6 +45,16 @@
     }
     .logout-button:hover {
         background-color: #aaa;
+    }
+
+    select, input {
+      flex-grow: 1;
+      font-size: 24px;
+      border-radius: 5px;
+    }
+
+    input[type=text] {
+      flex-grow: 2;
     }
     </style>
   </head>
@@ -71,13 +85,16 @@
   
     <script src="nav.js"></script>
     <div class="search-container">
-      <form>
+      <form class="search" style="display:flex; justify-content: space-around;">
         <select>        
-
-        </select>
+          <option value="genre">Genre</option>
+          <option value="actor">Actor/Actress</option>
+          <option value="vibe">~VIBE~</option>
+        </select> 
+        <br /> <br />
         <input type="text">
+        <br /> <br />
         <input type="submit" value="Search">
-
       </form>
     </div>
     <div id="watchListDiv"></div>
