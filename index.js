@@ -13,11 +13,11 @@ movieApp.use("/api/user", authRoute);
 movieApp.use("/api/user", movieRoute);
 
 mongoose.connect(
-        process.env.mongoConnect, 
+        "mongodb+srv://movieApp:movieApp@cluster0.lygfi.mongodb.net/movieApp?retryWrites=true&w=majority", 
         { useNewUrlParser: true,  useUnifiedTopology: true },
         () => console.log("Connected to db")
     );
 
-movieApp.listen(process.env.PORT, () => {
+movieApp.listen(process.env.PORT || 3000, () => {
     console.log("Server is on");
 })
