@@ -21,6 +21,6 @@ mongoose.connect(
         () => console.log("Connected to db")
     );
 
-movieApp.listen(3000, () => {
+movieApp.listen(process.env.PORT || 5000, () => {
     console.log("Server is on");
 })
