@@ -12,15 +12,13 @@ movieApp.use(express.json());
 movieApp.use("/api/user", authRoute);
 movieApp.use("/api/user", movieRoute);
 
-movieApp.get("/", (req, res) => {
-    res.send("Landing page")
-})
+
 mongoose.connect(
-        "mongodb+srv://movieApp:movieApp@cluster0.lygfi.mongodb.net/movieApp?retryWrites=true&w=majority", 
+        process.env.mongoConnect, 
         { useNewUrlParser: true,  useUnifiedTopology: true },
         () => console.log("Connected to db")
     );
 
-movieApp.listen(process.env.PORT || 5000, () => {
+movieApp.listen(3000, () => {
     console.log("Server is on");
 })
