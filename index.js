@@ -12,6 +12,9 @@ movieApp.use(express.json());
 movieApp.use("/api/user", authRoute);
 movieApp.use("/api/user", movieRoute);
 
+movieApp.get("/", (req, res) => {
+    res.send("Landing page")
+})
 mongoose.connect(
         "mongodb+srv://movieApp:movieApp@cluster0.lygfi.mongodb.net/movieApp?retryWrites=true&w=majority", 
         { useNewUrlParser: true,  useUnifiedTopology: true },
