@@ -1,72 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nextwatch: Home</title>
-    <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-  </head>
-  <body style="text-align: center">    
-    <header id="navbar">
-      <nav class="nav-wrapper container">
-        <a href="index.html" class="home-link">
-          <img id="logo" src="assets/logo.png">
-          nextwatch
-        </a>
-  
-        <button type="button" class="nav-toggle">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-  
-        <div class="nav-menu">
-          <ul class="nav-links">
-            <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
-            <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <script src="nav.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextwatch: Home</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" type="text/css" href="general.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <h1>Home</h1>
-    <div id="watchListDiv"></div>
-    <br />
-    <button id="logout">Logout</button>
-    <script>
-      const watchListDiv = document.getElementById("watchListDiv");
-      const logoutButton = document.getElementById("logout");
-      const getWatchList = async () => {
-        const token = window.localStorage.getItem("movieAppToken");
-        const rawRes = await fetch("/api/user/watchList", {
-          headers: {
-            "authorization": `Bearer ${token}`,
-          },
-        });
-        if (rawRes.status == 200) {
-          const res = await rawRes.json();
-          watchListDiv.innerHTML = "Your watchList: " + res.watchList;
-        } else {
-          watchListDiv.innerHTML = "Access Denied. Please log in first...";
-          setTimeout(function () {
-            window.location.href = "/login.html";
-          }, 3000);
-        }
-      };
-      getWatchList();
+</head>
 
-      logoutButton.addEventListener("click", () => {
-        window.localStorage.removeItem("movieAppToken");
-        watchListDiv.innerHTML = "Logging you out...";
+<body style="text-align: center">
+  <header id="navbar">
+    <nav class="nav-wrapper container">
+      <a href="index.html" class="home-link">
+        <img id="logo" src="assets/logo.png">
+        nextwatch
+      </a>
+
+      <button type="button" class="nav-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
+          <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
+          <li class="nav-item"><button id="logout">Logout</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <script src="nav.js"></script>
+
+  <h1>Home</h1>
+  <div id="watchListDiv"></div>
+  <br />
+
+  <button type="button" id="testRemove"> Remove from my watchlist </button>
+
+  <script>
+    const watchListDiv = document.getElementById("watchListDiv");
+    const logoutButton = document.getElementById("logout");
+    const token = window.localStorage.getItem("movieAppToken");
+
+    const getWatchList = async () => {
+      const rawRes = await fetch("/api/user/watchList", {
+        headers: {
+          "authorization": `Bearer ${token}`,
+        },
+      });
+      if (rawRes.status == 200) {
+        const res = await rawRes.json();
+        watchListDiv.innerHTML = "Your watchList: " + res.watchList;
+      } else {
+        watchListDiv.innerHTML = "Access Denied. Please log in first...";
         setTimeout(function () {
           window.location.href = "/login.html";
-        }, 2500);
+        }, 3000);
+      }
+    };
+    getWatchList();
+
+    const removeButton = document.getElementById("testRemove");
+    removeButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const url = "/api/user/deleteMovie";
+      const data = {
+        movieId: 578
+      };
+      const rawRes = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
       });
-    </script>
-  </body>
+      if (rawRes.status == 200) {
+        const res = await rawRes.json();
+        console.log(res.message);
+      } else {
+        console.log("Access Denied");
+        setTimeout(function () {
+          window.location.href = "/login.html";
+        }, 3000);
+      }
+      getWatchList();
+    });
+
+    logoutButton.addEventListener("click", () => {
+      window.localStorage.removeItem("movieAppToken");
+      watchListDiv.innerHTML = "Logging you out...";
+      setTimeout(function () {
+        window.location.href = "/login.html";
+      }, 2500);
+    });
+  </script>
+</body>
+
 </html>

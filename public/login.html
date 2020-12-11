@@ -7,47 +7,8 @@
     <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" type="text/css" href="general.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <style type="text/css">
-      .login-wrapper {
-        background-color: #1a1a1a;
-        width: 400px;
-        margin-top: 25px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 30px 10px 30px 10px;
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
-        border-radius: 5px;
-      }
 
-      .big-logo {
-        height: 150px;
-        width: auto;
-        margin: 0px 10px 10px 10px;
-        padding-top: 25px;
-      }
-
-      input {
-        width: 225px;
-        height: 30px;
-        padding-left: 5px;
-        border-radius: 5px;
-      }
-
-      input[type=submit] {
-        font-size: 16px;
-        background-color: #7342A3;
-        border-radius: 5px;
-        height: 30px;
-        font-weight: bold;
-        color: #ffffff;
-      }
-      
-      label {
-        color: #ffffff;
-        float: left;
-        margin-left: 80px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="box.css">
   </head>
     
   <body style="text-align: center">
@@ -75,27 +36,24 @@
     </header>
     <script src="nav.js"></script>
     
-    <div class="login-wrapper">
+    <div class="container-form">
       <h1>Login</h1>
 
       <img class="big-logo" src="assets/logo.png">
     <form id="loginForm">
-      <label for="email">Email</label>
       <br />
-      <input type="text" id="email" name="email" required />
-      <br />
-      <br />
-      <label for="password">Password</label>
-      <br />
-      <input type="password" id="password" name="password" required />
+      <input placeholder="Email" type="text" id="email" name="email" class="rounded-input" required  />
       <br />
       <br />
-      <input type="submit" value="Login" />
+      <input placeholder="Password" type="password" id="password" name="password" class="rounded-input" required />
+      <br />
+      <br />
+      <input type="submit" class="submit-button" value="Login" />
     </form>
     <br />
     <div style="color: #ffffff">
       Don't have an account? <br /><br />
-      <a href="register.html" style="color: #7342A3">Register here</a>
+      <a href="register.html" class="nonNavLink">Register here</a>
     </div>
     </div>
     <br />

@@ -7,60 +7,8 @@
     <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" type="text/css" href="general.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <style type="text/css">
+    <link rel="stylesheet" type="text/css" href="box.css">
 
-    *:focus {outline:none !important}
-    .container-form {
-        background-color: #1a1a1a;
-        width: 400px;
-        clear: both;
-        margin-top: 25px;
-        margin-left: auto;
-        margin-right: auto;
-        color: #ffffff;
-        padding: 30px 10px 30px 10px;
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
-        border-radius: 5px;
-      }
-
-      .big-logo {
-        height: 150px;
-        width: auto;
-        margin: 0px 10px 10px 10px;
-        padding-top: 25px;
-      }
-
-    .container-form input {
-        width: 225px;
-        clear: both;
-    }
-    .rounded-input {
-        padding: 5px;
-        border-radius: 15px;
-        border: 1px solid rgb(19, 18, 18);
-        transition: .3s border-color;
-    }
-    .rounded-input:hover {
-        border: 1px solid #aaa;
-    }
-    .register-button {
-    /* remove default behavior */
-        appearance:none;
-        -webkit-appearance:none;
-    /* usual styles */
-        padding:10px;   
-        border:none;
-        background-color:#7342A3;
-        color:#fff;
-        font-weight:600;
-        border-radius:5px;
-        width:10%; 
-    }
-    .register-button:hover {
-        background-color: #aaa;
-    }
-
-    </style>
   </head>
   <body style="text-align: center">
     <header id="navbar">
@@ -80,7 +28,7 @@
           <ul class="nav-links">
             <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
             <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
           </ul>
         </div>
       </nav>
@@ -94,20 +42,20 @@
       <form id="registerForm">
       <br />
       <label for="email"></label>
-      <input placeholder="email..." type="text" id="email" name="email" class="rounded-input" required />
+      <input placeholder="Email" type="text" id="email" name="email" class="rounded-input" required />
       <br />
       <br />
       <label for="password"></label>
-      <input placeholder="password..." type="password" id="password" name="password" class="rounded-input" required />
+      <input placeholder="Password" type="password" id="password" name="password" class="rounded-input" required />
       <br />
       <br />
       <div id="result"></div>
-      <input type="submit" class="register-button" value="Register" />
+      <input type="submit" class="submit-button" value="Register" />
     </form>
     <div style="color: #ffffff">
       <br />
       Already have an account? <br /><br />
-      <a href="login.html" style="color: #7342A3">Login here</a>
+      <a href="login.html" class="nonNavLink">Login here</a>
     </div>
   </div>
 
