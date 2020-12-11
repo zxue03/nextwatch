@@ -40,7 +40,7 @@
     .search-container input,
     select {
       border-radius: 15px;
-      background-color: #ec911b;
+      background-color: #fff;
       height: 50px;
       font-size: 24px;
       padding: 10px;
@@ -55,8 +55,8 @@
 
     #search {
       width: 150px;
-      color: #fff;
-      background-color: #7342A3;
+      color: #000;
+      background-color: #ec911b;
     }
 
     .movieBlock {
@@ -199,8 +199,8 @@
   </script>
 
   <div class="search-container">
-    <form class="search-form">
-      <select name="searchType" id="searchType">
+    <form class="search-form" id="search-form">
+      <select id="searchType">
         <option value="mood">Mood</option>
         <option value="person">Actor/Actress</option>
       </select>
@@ -232,8 +232,6 @@
     </script>
   </div>
 
-  <button type="button" id="testAdd"> Add to my watchlist </button>
-
   <br />
   <script>
     const logoutButton = document.getElementById("logout");
@@ -245,6 +243,21 @@
         window.location.href = "/login.html";
       }, 2500);
     });
+
+    const searchForm = document.getElementById('search-form');
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    searchType = document.getElementById('searchType');
+    typeSelected = searchType.selectedIndex;
+
+    if (typeSelected == mood) {
+      alert("mood");
+    } else if (typeSelected == person) {
+      searched = document.getElementById('personSearch').value;
+      searchPerson(searched);
+    }
+  });
   </script>
 </body>
 

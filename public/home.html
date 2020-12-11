@@ -56,6 +56,7 @@
       if (rawRes.status == 200) {
         const res = await rawRes.json();
         watchListDiv.innerHTML = "Your watchList: " + res.watchList;
+        // 
       } else {
         watchListDiv.innerHTML = "Access Denied. Please log in first...";
         setTimeout(function () {
