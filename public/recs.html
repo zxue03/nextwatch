@@ -34,6 +34,29 @@
       width: 100%;
       display: flex;
       justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .search-container input,
+    select {
+      border-radius: 15px;
+      background-color: #ec911b;
+      height: 50px;
+      font-size: 24px;
+      padding: 10px;
+      border: none;
+      margin-bottom: 10px;
+    }
+
+    #personSearch,
+    #moodDrop {
+      width: 500px;
+    }
+
+    #search {
+      width: 150px;
+      color: #fff;
+      background-color: #7342A3;
     }
 
     .movieBlock {
@@ -92,25 +115,20 @@
     .movieBlock.interested .moviePoster {
       opacity: 0;
     }
-
-    select,
-    input {
-      font-size: 20px;
-      border-radius: 5px;
-    }
   </style>
   <script>
-    const vibe = 0;
+    const mood = 0;
     const person = 1;
 
     $(document).ready(function () {
       $('#searchType').change(function () {
         var selected = $('#searchType')[0].selectedIndex;
-        if (selected == vibe) {
+        if (selected == mood) {
           $('#personSearch').hide();
-          $('#vibeDrop').show();
+          $('#moodDrop').show();
         } else if (selected == person) {
-
+          $('#moodDrop').hide();
+          $('#personSearch').show();
         }
       });
 
@@ -150,7 +168,7 @@
 
   <script src="nav.js"></script>
   <script language="javascript">
-    const vibeTitles = [
+    const moodTitles = [
       "Adventure from the Couch",
       "Family Movie Night",
       "Date Night",
@@ -159,7 +177,7 @@
       "When You Need to Laugh"
     ];
 
-    const subVibes = [
+    const subMoods = [
       ['action', 'adventure', 'western', 'science fiction', 'mystery'],
       ['family', 'fantasy', 'animation'],
       ['romantic', 'comedy'],
@@ -168,36 +186,36 @@
       ['comedy']
     ];
 
-    function Vibe(title, subgenres) {
+    function Mood(title, subgenres) {
       this.title = title;
       this.subgenres = subgenres;
     }
 
-    var vibes = [];
-    for (i = 0; i < vibeTitles.length; i++) {
-      var newVibe = new Vibe(vibeTitles[i], subVibes[i]);
-      vibes.push(newVibe);
+    var moods = [];
+    for (i = 0; i < moodTitles.length; i++) {
+      var newMood = new Mood(moodTitles[i], subMoods[i]);
+      moods.push(newMood);
     }
   </script>
 
   <div class="search-container">
     <form class="search-form">
       <select name="searchType" id="searchType">
-        <option value="vibe">~VIBE~</option>
-        <option value="actor">Actor/Actress</option>
+        <option value="mood">Mood</option>
+        <option value="person">Actor/Actress</option>
       </select>
       <br /> <br />
-      <input type="text" id="personSearch" style="display: none;">
+      <input type="text" id="personSearch" style="display: none;" placeholder="Enter the name of an actor/actress here">
       <script language="javascript">
-        var selectString = "<select id=vibeDrop>";
-        for (i = 0; i < vibeTitles.length; i++) {
-          selectString += "<option>" + vibeTitles[i] + "</option>";
+        var selectString = "<select id='moodDrop'>";
+        for (i = 0; i < moodTitles.length; i++) {
+          selectString += "<option>" + moodTitles[i] + "</option>";
         }
         selectString += "</select>";
         document.writeln(selectString);
       </script>
       <br /> <br />
-      <input type="submit" value="Search">
+      <input type="submit" id="search" value="Search">
     </form>
   </div>
   <div id="watchListDiv" style="display: hidden;"></div>
@@ -215,8 +233,6 @@
   </div>
 
   <button type="button" id="testAdd"> Add to my watchlist </button>
-
-
 
   <br />
   <script>

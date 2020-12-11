@@ -11,6 +11,7 @@ function getConfig() {
 
       genresList = getGenres();
       loadTrending();
+      listenForSearches();
     })
     .catch(function (err) {
       alert(err);
@@ -93,5 +94,36 @@ function loadTrending() {
   })
 }
 
+function listenForSearches() {
+  const searchButton = document.getElementById('search');
+
+  searchButton.addEventListener("click", () => {
+    searchType = document.getElementById('searchType');
+    typeSelected = searchType.selectedIndex;
+
+    if (typeSelected == mood) {
+      alert("mood");
+    } else if (typeSelected == person) {
+      searched = document.getElementById('personSearch').value;
+      searchPerson(searched);
+    }
+  });
+}
+
+/** THIS PART ISN'T WORKING...MIGHT NEED TO BE MOVED TO NODE JS FILE AND
+    CHANGE FORM ACTION TO PORT?? **/
+function searchPerson(person) {
+  let url =
+    "https://api.themoviedb.org/3/discover/movie?api_key=<<api_key>>&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=will%20smith";
+  fetch(url)
+    .then(results => results.json())
+    .then((data) => {
+      alert("fetched?");
+      console.log("fetched person search", data);
+    })
+    .catch(function (err) {
+      alert(err);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', getConfig);
