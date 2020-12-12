@@ -5,74 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
     <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css" />
+    <link rel="stylesheet" type="text/css" href="general.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="box.css" />
+    <style type="text/css">
+
+    *:focus {outline:none !important}
+    .container-form {
+        width: 300px;
+        clear: both;
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+        margin-left: auto;
+        margin-right: auto;
+        color: #ffffff;
+        padding-bottom: 30px;
+    }
+
+    .container-form input {
+        width: 100%;
+        clear: both;
+    }
+    .rounded-input {
+        padding: 5px;
+        border-radius: 20px;
+        border: 1px solid rgb(19, 18, 18);
+        transition: .3s border-color;
+    }
+    .rounded-input:hover {
+        border: 1px solid #aaa;
+    }
+    .register-button {
+    /* remove default behavior */
+        appearance:none;
+        -webkit-appearance:none;
+    /* usual styles */
+        padding:10px;   
+        border:none;
+        background-color:#3F51B5;
+        color:#fff;
+        font-weight:600;
+        border-radius:5px;
+        width:10%; 
+    }
+    .register-button:hover {
+        background-color: #aaa;
+    }
+    A {text-decoration: none;}
+    </style>
   </head>
   <body style="text-align: center">
     <header id="navbar">
       <nav class="nav-wrapper container">
         <a href="index.html" class="home-link">
-          <img id="logo" src="assets/logo.png" />
+          <img id="logo" src="assets/logo.png">
           nextwatch
         </a>
-
+  
         <button type="button" class="nav-toggle">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-
+  
         <div class="nav-menu">
           <ul class="nav-links">
-            <li class="nav-item">
-              <a class="nav-link" href="recs.html">Recommendations</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
+            <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
           </ul>
         </div>
       </nav>
     </header>
     <script src="nav.js"></script>
-
+    
+    <h1>Register</h1>
     <div class="container-form">
-      <h1>Register</h1>
-
-      <img class="big-logo" src="assets/logo.png" />
-      <form id="registerForm">
-        <br />
-        <label for="email"></label>
-        <input
-          placeholder="Email"
-          type="text"
-          id="email"
-          name="email"
-          class="rounded-input"
-          required
-        />
-        <br />
-        <br />
-        <label for="password"></label>
-        <input
-          placeholder="Password"
-          type="password"
-          id="password"
-          name="password"
-          class="rounded-input"
-          required
-        />
-        <br />
-        <br />
-        <div id="result"></div>
-        <input type="submit" class="submit-button" value="Register" />
-      </form>
-      <div style="color: #ffffff">
-        <br />
-        Already have an account? <br /><br />
-        <a href="login.html" class="nonNavLink">Login here</a>
-      </div>
+    <form id="registerForm">
+      <br />
+      <label for="email"></label>
+      <input placeholder="email" type="text" id="email" name="email" class="rounded-input" required />
+      <br />
+      <br />
+      <label for="password"></label>
+      <input placeholder="password" type="password" id="password" name="password" class="rounded-input" required />
+      <br />
+      <br />
+      <div id="result"></div>
+      <input type="submit" class="register-button" value="Register" />
+    </form>
+    <br />
+    </div>
+    <div style="color: #ffffff">
+      Already have an account? <br /><br />
+      <a href="login.html" class="register-button">Login here</a>
     </div>
 
     <script>
