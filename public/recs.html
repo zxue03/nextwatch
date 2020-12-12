@@ -1,264 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nextwatch - Recommendations</title>
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="stylesheet" type="text/css" href="general.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="recs.js"></script>
+    <style type="text/css">
+      .movieDisplay {
+        width: 80%;
+        background-color: #000000;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextwatch - Recommendations</title>
-  <link rel="icon" href="assets/logo.png" />
-  <link rel="stylesheet" type="text/css" href="general.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="recs.js"></script>
-  <style type="text/css">
-    .movieDisplay {
-      width: 80%;
-      background-color: #000000;
-      margin-left: auto;
-      margin-right: auto;
-      padding-top: 20px;
-      padding-bottom: 10px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+      .search-container {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 10px 30px 10px;
+      }
 
-    .search-container {
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 30px 10px 30px 10px;
-    }
+      .search-form {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
 
-    .search-form {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
+      .search-container input,
+      select {
+        border-radius: 15px;
+        background-color: #fff;
+        height: 50px;
+        font-size: 24px;
+        padding: 10px;
+        border: none;
+        margin-bottom: 10px;
+      }
 
-    .search-container input,
-    select {
-      border-radius: 15px;
-      background-color: #fff;
-      height: 50px;
-      font-size: 24px;
-      padding: 10px;
-      border: none;
-      margin-bottom: 10px;
-    }
+      #personSearch,
+      #moodDrop {
+        width: 500px;
+      }
 
-    #personSearch,
-    #moodDrop {
-      width: 500px;
-    }
+      #search {
+        width: 150px;
+        color: #000;
+        background-color: #ec911b;
+      }
 
-    #search {
-      width: 150px;
-      color: #000;
-      background-color: #ec911b;
-    }
+      .movieBlock {
+        padding: 10px;
+      }
 
-    .movieBlock {
-      padding: 10px;
-    }
+      .moviePoster {
+        position: relative;
+      }
 
-    .moviePoster {
-      position: relative;
-    }
+      .moreInfo {
+        position: absolute;
+        width: 200px;
+        margin-left: 0;
+        margin-top: -280px;
+        opacity: 0;
+        color: #fff;
+        padding: 5px;
+      }
 
-    .moreInfo {
-      position: absolute;
-      width: 200px;
-      margin-left: 0;
-      margin-top: -280px;
-      opacity: 0;
-      color: #fff;
-      padding: 5px;
-    }
+      .movieTitle {
+        font-size: 16px;
+        font-weight: bold;
+        padding-bottom: 7px;
+      }
 
-    .movieTitle {
-      font-size: 16px;
-      font-weight: bold;
-      padding-bottom: 7px;
-    }
+      .synopsis {
+        font-size: 15px;
+        padding-bottom: 7px;
+      }
 
-    .synopsis {
-      font-size: 15px;
-      padding-bottom: 7px;
-    }
+      .addButton {
+        width: 150px;
+        margin-top: 5px;
+        border: 2px solid #fff;
+        border-radius: 6px;
+        color: #fff;
+        background: transparent;
+        padding: 7px;
+      }
 
-    .addButton {
-      width: 150px;
-      margin-top: 5px;
-      border: 2px solid #fff;
-      border-radius: 6px;
-      color: #fff;
-      background: transparent;
-      padding: 7px;
-    }
+      input[type="image"] {
+        width: 50px;
+        height: 50px;
+      }
 
-    input[type=image] {
-      width: 50px;
-      height: 50px;
-    }
+      .addButton:hover {
+        background-color: #7342a3;
+        border: 2px solid #7342a3;
+      }
 
-    .addButton:hover {
-      background-color: #7342A3;
-      border: 2px solid #7342A3;
-    }
+      .movieBlock.interested .moreInfo {
+        opacity: 1;
+      }
 
-    .movieBlock.interested .moreInfo {
-      opacity: 1;
-    }
-
-    .movieBlock.interested .moviePoster {
-      opacity: 0;
-    }
-  </style>
-  <script>
-    const mood = 0;
-    const person = 1;
-
-    $(document).ready(function () {
-      $('#searchType').change(function () {
-        var selected = $('#searchType')[0].selectedIndex;
-        if (selected == mood) {
-          $('#personSearch').hide();
-          $('#moodDrop').show();
-        } else if (selected == person) {
-          $('#moodDrop').hide();
-          $('#personSearch').show();
-        }
-      });
-
-      $(".movieBlock").hover(function () {
-        $(this).addClass("interested");
-      }, function () {
-        $(this).removeClass("interested");
-      });
-    });
-
-  </script>
-</head>
-
-<body style="text-align: center">
-  <header id="navbar">
-    <nav class="nav-wrapper container">
-      <a href="index.html" class="home-link">
-        <img id="logo" src="assets/logo.png">
-        nextwatch
-      </a>
-
-      <button type="button" class="nav-toggle">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <div class="nav-menu">
-        <ul class="nav-links">
-          <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
-          <li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>
-          <li class="nav-item"><button id="logout">Logout</button></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <script src="nav.js"></script>
-  <script language="javascript">
-    const moodTitles = [
-      "Adventure from the Couch",
-      "Family Movie Night",
-      "Date Night",
-      "Out of this World",
-      "Bust out the Tissues",
-      "When You Need to Laugh"
-    ];
-
-    const subMoods = [
-      ['action', 'adventure', 'western', 'science fiction', 'mystery'],
-      ['family', 'fantasy', 'animation'],
-      ['romantic', 'comedy'],
-      ['fantasy', 'science fiction'],
-      ['drama', 'romance'],
-      ['comedy']
-    ];
-
-    function Mood(title, subgenres) {
-      this.title = title;
-      this.subgenres = subgenres;
-    }
-
-    var moods = [];
-    for (i = 0; i < moodTitles.length; i++) {
-      var newMood = new Mood(moodTitles[i], subMoods[i]);
-      moods.push(newMood);
-    }
-  </script>
-
-  <div class="search-container">
-    <form class="search-form" id="search-form">
-      <select id="searchType">
-        <option value="mood">Mood</option>
-        <option value="person">Actor/Actress</option>
-      </select>
-      <br /> <br />
-      <input type="text" id="personSearch" style="display: none;" placeholder="Enter the name of an actor/actress here">
-      <script language="javascript">
-        var selectString = "<select id='moodDrop'>";
-        for (i = 0; i < moodTitles.length; i++) {
-          selectString += "<option>" + moodTitles[i] + "</option>";
-        }
-        selectString += "</select>";
-        document.writeln(selectString);
-      </script>
-      <br /> <br />
-      <input type="submit" id="search" value="Search">
-    </form>
-  </div>
-  <div id="watchListDiv" style="display: hidden;"></div>
-
-  <h2 class="movieDisplay">Recommendations</h2>
-  <div class="movieDisplay">
+      .movieBlock.interested .moviePoster {
+        opacity: 0;
+      }
+    </style>
     <script>
-      var s = "";
-      for (i = 0; i < 20; i++) {
-        s = '<div class="movieBlock" id="top' + i + '"></div>';
-        document.write(s);
-        s = "";
+      const mood = 0;
+      const person = 1;
+
+      $(document).ready(function () {
+        $("#searchType").change(function () {
+          var selected = $("#searchType")[0].selectedIndex;
+          if (selected == mood) {
+            $("#personSearch").hide();
+            $("#moodDrop").show();
+          } else if (selected == person) {
+            $("#moodDrop").hide();
+            $("#personSearch").show();
+          }
+        });
+
+        $(".movieBlock").hover(
+          function () {
+            $(this).addClass("interested");
+          },
+          function () {
+            $(this).removeClass("interested");
+          }
+        );
+      });
+    </script>
+  </head>
+
+  <body style="text-align: center">
+    <header id="navbar">
+      <nav class="nav-wrapper container">
+        <a href="index.html" class="home-link">
+          <img id="logo" src="assets/logo.png" />
+          nextwatch
+        </a>
+
+        <button type="button" class="nav-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <div class="nav-menu">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a class="nav-link" href="recs.html">Recommendations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">My Watchlist</a>
+            </li>
+            <li class="nav-item"><button id="logout">Logout</button></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <script src="nav.js"></script>
+    <script language="javascript">
+      const moodTitles = [
+        "Adventure from the Couch",
+        "Family Movie Night",
+        "Date Night",
+        "Out of this World",
+        "Bust out the Tissues",
+        "When You Need to Laugh",
+      ];
+
+      const subMoods = [
+        ["action", "adventure", "western", "science fiction", "mystery"],
+        ["family", "fantasy", "animation"],
+        ["romantic", "comedy"],
+        ["fantasy", "science fiction"],
+        ["drama", "romance"],
+        ["comedy"],
+      ];
+
+      function Mood(title, subgenres) {
+        this.title = title;
+        this.subgenres = subgenres;
+      }
+
+      var moods = [];
+      for (i = 0; i < moodTitles.length; i++) {
+        var newMood = new Mood(moodTitles[i], subMoods[i]);
+        moods.push(newMood);
       }
     </script>
-  </div>
 
-  <br />
-  <script>
-    const logoutButton = document.getElementById("logout");
+    <div class="search-container">
+      <form class="search-form" id="search-form">
+        <select id="searchType">
+          <option value="mood">Mood</option>
+          <option value="person">Actor/Actress</option>
+        </select>
+        <br />
+        <br />
+        <input
+          type="text"
+          id="personSearch"
+          style="display: none"
+          placeholder="Enter the name of an actor/actress here"
+        />
+        <script language="javascript">
+          var selectString = "<select id='moodDrop'>";
+          for (i = 0; i < moodTitles.length; i++) {
+            selectString += "<option>" + moodTitles[i] + "</option>";
+          }
+          selectString += "</select>";
+          document.writeln(selectString);
+        </script>
+        <br />
+        <br />
+        <input type="submit" id="search" value="Search" />
+      </form>
+    </div>
+    <div id="watchListDiv" style="display: hidden"></div>
 
-    logoutButton.addEventListener("click", () => {
-      window.localStorage.removeItem("movieAppToken");
-      watchListDiv.innerHTML = "Logging you out...";
-      setTimeout(function () {
-        window.location.href = "/login.html";
-      }, 2500);
-    });
+    <h2 class="movieDisplay">Recommendations</h2>
+    <div class="movieDisplay">
+      <script>
+        var s = "";
+        for (i = 0; i < 20; i++) {
+          s = '<div class="movieBlock" id="top' + i + '"></div>';
+          document.write(s);
+          s = "";
+        }
+      </script>
+    </div>
 
-    const searchForm = document.getElementById('search-form');
+    <br />
+    <script>
+      const logoutButton = document.getElementById("logout");
 
-  searchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    searchType = document.getElementById('searchType');
-    typeSelected = searchType.selectedIndex;
+      logoutButton.addEventListener("click", () => {
+        window.localStorage.removeItem("movieAppToken");
+        watchListDiv.innerHTML = "Logging you out...";
+        setTimeout(function () {
+          window.location.href = "/login.html";
+        }, 1000);
+      });
 
-    if (typeSelected == mood) {
-      alert("mood");
-    } else if (typeSelected == person) {
-      searched = document.getElementById('personSearch').value;
-      searchPerson(searched);
-    }
-  });
-  </script>
-</body>
+      const searchForm = document.getElementById("search-form");
 
+      searchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        searchType = document.getElementById("searchType");
+        typeSelected = searchType.selectedIndex;
+
+        if (typeSelected == mood) {
+          alert("mood");
+        } else if (typeSelected == person) {
+          searched = document.getElementById("personSearch").value;
+          searchPerson(searched);
+        }
+      });
+    </script>
+  </body>
 </html>
