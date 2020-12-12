@@ -9,6 +9,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="box.css" />
+    <style type="text/css">
+
+        *:focus {outline:none !important}
+        .container-form {
+            width: 300px;
+            clear: both;
+            padding-left: 1.4rem;
+            padding-right: 1.4rem;
+            margin-left: auto;
+            margin-right: auto;
+            color: #ffffff;
+            padding-bottom: 30px;
+        }
+    
+        .container-form input {
+            width: 100%;
+            clear: both;
+        }
+        .rounded-input {
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid rgb(19, 18, 18);
+            transition: .3s border-color;
+        }
+        .rounded-input:hover {
+            border: 1px solid #aaa;
+        }
+        .login-updated-button {
+        /* remove default behavior */
+            appearance:none;
+            -webkit-appearance:none;
+        /* usual styles */
+            padding:10px;   
+            border:none;
+            background-color:#3F51B5;
+            color:#fff;
+            font-weight:600;
+            border-radius:5px;
+            width:10%; 
+        }
+        .login-updated-button:hover {
+            background-color: #aaa;
+        }
+        A {text-decoration: none;}
+        </style>
   </head>
 
   <body style="text-align: center">
@@ -42,11 +87,11 @@
     <div class="container-form">
       <h1>Login</h1>
 
-      <img class="big-logo" src="assets/logo.png" />
+      <!-- <img class="big-logo" src="assets/logo.png" /> -->
       <form id="loginForm">
         <br />
         <input
-          placeholder="Email"
+          placeholder="email"
           type="text"
           id="email"
           name="email"
@@ -56,7 +101,7 @@
         <br />
         <br />
         <input
-          placeholder="Password"
+          placeholder="password"
           type="password"
           id="password"
           name="password"
@@ -65,12 +110,12 @@
         />
         <br />
         <br />
-        <input type="submit" class="submit-button" value="Login" />
+        <input type="submit" class="login-updated-button" value="Login" />
       </form>
       <br />
       <div style="color: #ffffff">
         Don't have an account? <br /><br />
-        <a href="register.html" class="nonNavLink">Register here</a>
+        <a href="register.html" class="login-updated-button">Register here</a>
       </div>
     </div>
     <br />
