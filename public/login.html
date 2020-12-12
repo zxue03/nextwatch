@@ -5,55 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css">
+    <link rel="stylesheet" type="text/css" href="general.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="box.css">
+    <link rel="stylesheet" type="text/css" href="box.css" />
   </head>
-    
+
   <body style="text-align: center">
     <header id="navbar">
       <nav class="nav-wrapper container">
         <a href="index.html" class="home-link">
-          <img id="logo" src="assets/logo.png">
+          <img id="logo" src="assets/logo.png" />
           nextwatch
         </a>
-  
+
         <button type="button" class="nav-toggle">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-  
+
         <div class="nav-menu">
           <ul class="nav-links">
-            <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
-            <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="recs.html">Recommendations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register</a>
+            </li>
           </ul>
         </div>
       </nav>
     </header>
     <script src="nav.js"></script>
-    
+
     <div class="container-form">
       <h1>Login</h1>
 
-      <img class="big-logo" src="assets/logo.png">
-    <form id="loginForm">
+      <img class="big-logo" src="assets/logo.png" />
+      <form id="loginForm">
+        <br />
+        <input
+          placeholder="Email"
+          type="text"
+          id="email"
+          name="email"
+          class="rounded-input"
+          required
+        />
+        <br />
+        <br />
+        <input
+          placeholder="Password"
+          type="password"
+          id="password"
+          name="password"
+          class="rounded-input"
+          required
+        />
+        <br />
+        <br />
+        <input type="submit" class="submit-button" value="Login" />
+      </form>
       <br />
-      <input placeholder="Email" type="text" id="email" name="email" class="rounded-input" required  />
-      <br />
-      <br />
-      <input placeholder="Password" type="password" id="password" name="password" class="rounded-input" required />
-      <br />
-      <br />
-      <input type="submit" class="submit-button" value="Login" />
-    </form>
-    <br />
-    <div style="color: #ffffff">
-      Don't have an account? <br /><br />
-      <a href="register.html" class="nonNavLink">Register here</a>
-    </div>
+      <div style="color: #ffffff">
+        Don't have an account? <br /><br />
+        <a href="register.html" class="nonNavLink">Register here</a>
+      </div>
     </div>
     <br />
     <div id="result"></div>
@@ -83,7 +101,7 @@
           window.localStorage.setItem("movieAppToken", res.token);
           setTimeout(function () {
             window.location.href = "/home.html";
-          }, 2500);
+          }, 1000);
         } else {
           result.innerHTML = res.message;
         }
