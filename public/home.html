@@ -13,7 +13,7 @@
 <body style="text-align: center">
   <header id="navbar">
     <nav class="nav-wrapper container">
-      <a href="index.html" class="home-link">
+      <a href="recs.html" class="home-link">
         <img id="logo" src="assets/logo.png" />
         nextwatch
       </a>
@@ -104,20 +104,28 @@
       }, 2500);
     });
 
+    // TRYING TO LOAD WATCHLIST POSTERS HERE
     function loadWatchlist(movies) {
-      let url = "https://api.themoviedb.org/3/find/{external_id}?api_key=<<api_key>>&language=en-US&external_source=2888";
-      fetch(url)
-        .then(results => results.json())
-        .then((data) => {
-          console.log(data);
-        })
-
       var tempString = "", divName;
+      // retrieve and store baseImageURL and poster size here
+      // can hard code or get from config or some other way?
+      var baseImageURL = "";
+      var posterSize = "";
       for (i = 0; i < movies.length; i++) {
         divName = 'watch' + i;
         tempString = '<div id="' + divName + '">'
-        tempString += '<p class="title">' + + '</p>';
+        // need to fetch the movies[i]
+        posterURL = baseImageURL + posterSize + /*poster path of the movie*/;
+        tempString = '<img src="' + posterURL + '">';
+        tempString += '<div class="title">' + /*get original_title here*/ + '</div>';
+        tempString += '<div class="synopsis">' + /*get overview*/ + '</div>';
+        
+        tempString += '<input type="button" class="removeButton" value="Remove from watchlist"';
+        tempString += ' id="' + movies[i] + '">';
         tempString += '</div>';
+
+        document.write(tempString);
+        tempString = "";
       }
     }
   </script>
