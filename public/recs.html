@@ -267,7 +267,13 @@
           alert("mood");
         } else if (typeSelected == person) {
           searched = document.getElementById("personSearch").value;
-          searchPerson(searched);
+          //form validation
+          if(searched == ""){
+            alert("Please enter an actor's name for your search");
+          }
+          else{
+            searchPerson(searched);
+          }
         }
       });
     </script>
