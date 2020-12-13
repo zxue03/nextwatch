@@ -51,7 +51,7 @@ function loadTrending() {
         toWrite += '<div class="synopsis">' + data.results[i].overview + '</div>';
         //check if movie is already in their
 
-        toWrite += '<input type="image" class="addButton" src="assets/add.png"';
+        toWrite += '<input type="image" class="Button" src="assets/add.png"';
         toWrite += ' id="' + data.results[i].id + '" value="false">';
         toWrite += '</div>';
 
@@ -60,7 +60,7 @@ function loadTrending() {
       }
       console.log(data);
 
-      document.querySelectorAll('.addButton').forEach(item => {
+      document.querySelectorAll('.Button').forEach(item => {
         item.addEventListener('click', async (e) => {
           e.preventDefault();
           const url = "/api/user/addMovie";
@@ -142,7 +142,7 @@ function getMovies(personID) {
           toWrite += '<div class="movieTitle">' + data.results[i].original_title + '</div>';
           toWrite += '<div class="synopsis">' + data.results[i].overview + '</div>';
 
-          toWrite += '<input type="image" class="addButton" src="assets/add.png"';
+          toWrite += '<input type="image" class="Button" src="assets/add.png"';
           toWrite += ' id="' + data.results[i].id + '" value="false">';
           toWrite += '</div>';
 
@@ -151,10 +151,40 @@ function getMovies(personID) {
         }
         i++;
       } while (i < data.results.length);
+      document.querySelectorAll('.Button').forEach(item => {
+        item.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const url = "/api/user/addMovie";
+          const data = {
+            movieId: e.target.id
+          };
+          const token = window.localStorage.getItem("movieAppToken");
+          const rawRes = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+          });
+          if (rawRes.status == 200) {
+            const res = await rawRes.json();
+            console.log(res.message);
+          } else {
+            console.log("Access Denied");
+            setTimeout(function () {
+              window.location.href = "/login.html";
+            }, 3000);
+          }
+          e.target.src = "assets/added.png";
+          e.target.value = "true";
+        });
+      });
     })
     .catch(function (err) {
       alert(err);
     });
+    
 }
 
 function loadMovies(data) {

@@ -55,28 +55,6 @@ const getWatchListMovie = async () => {
 }
 
 
-const removeButton = document.getElementById("testRemove");
-removeButton.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const url = "/api/user/deleteMovie";
-    const data = {
-        movieId: 578,
-    };
-    const rawRes = await fetch(url, {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        "authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-    });
-    if (rawRes.status == 200) {
-        const res = await rawRes.json();
-        console.log(res.message);
-    } 
-    // getWatchListId();
-});
-
 logoutButton.addEventListener("click", () => {
     window.localStorage.removeItem("movieAppToken");
     watchListDiv.innerHTML = "Logging you out...";
@@ -107,7 +85,7 @@ function loadWatchlist() {
           toWrite += '<div class="movieTitle">' + movies[i].original_title + '</div>';
           toWrite += '<div class="synopsis">' + movies[i].overview + '</div>';
 
-          toWrite += '<input type="image" class="addButton" src="assets/add.png"';
+          toWrite += '<input type="image" class="Button" src="assets/remove.png"';
           toWrite += ' id="' + movies[i].id + '" value="false">';
           toWrite += '</div>';
         toWrite += "</div>";
@@ -116,6 +94,44 @@ function loadWatchlist() {
         toWrite = "";
     }
     watchListDiv.innerHTML = watchListContent
+    $(".movieBlock").hover(
+        function () {
+          $(this).addClass("interested");
+        },
+        function () {
+          $(this).removeClass("interested");
+        }
+      );
+      document.querySelectorAll('.Button').forEach(item => {
+        item.addEventListener('click', async (e) => {
+
+          e.preventDefault();
+          const url = "/api/user/deleteMovie";
+          const data = {
+            movieId: e.target.id
+          };
+          const token = window.localStorage.getItem("movieAppToken");
+          const rawRes = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+          });
+          if (rawRes.status == 200) {
+            const res = await rawRes.json();
+            console.log(res.message);
+            e.target.parentElement.parentElement.remove()
+          } else {
+            console.log("Access Denied");
+            setTimeout(function () {
+              window.location.href = "/login.html";
+            }, 3000);
+          }
+          
+        });
+      });
 }
 
 

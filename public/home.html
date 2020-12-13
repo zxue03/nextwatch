@@ -6,116 +6,9 @@
     <title>Nextwatch: Home</title>
     <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" type="text/css" href="general.css" />
+    <link rel="stylesheet" type="text/css" href="movie.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   </head>
-
-  <style type="text/css">
-    .movieDisplay {
-      width: 80%;
-      background-color: #000000;
-      margin-left: auto;
-      margin-right: auto;
-      padding-top: 20px;
-      padding-bottom: 10px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .search-container {
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 30px 10px 30px 10px;
-    }
-
-    .search-form {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-
-    .search-container input,
-    select {
-      border-radius: 15px;
-      background-color: #fff;
-      height: 50px;
-      font-size: 24px;
-      padding: 10px;
-      border: none;
-      margin-bottom: 10px;
-    }
-
-    #personSearch,
-    #moodDrop {
-      width: 500px;
-    }
-
-    #search {
-      width: 150px;
-      color: #000;
-      background-color: #ec911b;
-    }
-
-    .movieBlock {
-      padding: 10px;
-    }
-
-    .moviePoster {
-      position: relative;
-    }
-
-    .moreInfo {
-      position: absolute;
-      width: 200px;
-      margin-left: 0;
-      margin-top: -280px;
-      opacity: 0;
-      color: #fff;
-      padding: 5px;
-    }
-
-    .movieTitle {
-      font-size: 16px;
-      font-weight: bold;
-      padding-bottom: 7px;
-    }
-
-    .synopsis {
-      font-size: 15px;
-      padding-bottom: 7px;
-    }
-
-    .addButton {
-      width: 150px;
-      margin-top: 5px;
-      border: 2px solid #fff;
-      border-radius: 6px;
-      color: #fff;
-      background: transparent;
-      padding: 7px;
-    }
-
-    input[type="image"] {
-      width: 50px;
-      height: 50px;
-    }
-
-    .addButton:hover {
-      background-color: #7342a3;
-      border: 2px solid #7342a3;
-    }
-
-    .movieBlock.interested .moreInfo {
-      opacity: 1;
-    }
-
-    .movieBlock.interested .moviePoster {
-      opacity: 0;
-    }
-  </style>
 
   <body style="text-align: center">
     <header id="navbar">
@@ -145,12 +38,11 @@
       </nav>
     </header>
     <script src="nav.js"></script>
-
+    <br />
     <h1>Home</h1>
+    <br />
     <div id="watchListDiv" class="movieDisplay"></div>
     <br />
-
-    <button type="button" id="testRemove">Remove from my watchlist</button>
     <script src="home.js"></script>
   </body>
 </html>
