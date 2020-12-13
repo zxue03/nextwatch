@@ -1,107 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nextwatch: Home</title>
-    <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  </head>
 
-  <body style="text-align: center">
-    <header id="navbar">
-      <nav class="nav-wrapper container">
-        <a href="index.html" class="home-link">
-          <img id="logo" src="assets/logo.png" />
-          nextwatch
-        </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextwatch: Home</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" type="text/css" href="general.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
 
-        <button type="button" class="nav-toggle">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+<body style="text-align: center">
+  <header id="navbar">
+    <nav class="nav-wrapper container">
+      <a href="index.html" class="home-link">
+        <img id="logo" src="assets/logo.png" />
+        nextwatch
+      </a>
 
-        <div class="nav-menu">
-          <ul class="nav-links">
-            <li class="nav-item">
-              <a class="nav-link" href="recs.html">Recommendations</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="home.html">My Watchlist</a>
-            </li>
-            <li class="nav-item"><button id="logout">Logout</button></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <script src="nav.js"></script>
+      <button type="button" class="nav-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-    <h1>Home</h1>
-    <div id="watchListDiv"></div>
-    <br />
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a class="nav-link" href="recs.html">Recommendations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">My Watchlist</a>
+          </li>
+          <li class="nav-item"><button id="logout">Logout</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <script src="nav.js"></script>
 
-    <button type="button" id="testRemove">Remove from my watchlist</button>
+  <h1>Home</h1>
+  <div id="watchListDiv"></div>
+  <br />
 
-    <script>
-      const watchListDiv = document.getElementById("watchListDiv");
-      const logoutButton = document.getElementById("logout");
-      const token = window.localStorage.getItem("movieAppToken");
+  <button type="button" id="testRemove">Remove from my watchlist</button>
 
-      const getWatchList = async () => {
-        const rawRes = await fetch("/api/user/watchList", {
-          headers: {
-            "authorization": `Bearer ${token}`,
-          },
-        });
-        if (rawRes.status == 200) {
-          const res = await rawRes.json();
-          watchListDiv.innerHTML = "Your watchList: " + res.watchList;
-          //
-        } else {
-          watchListDiv.innerHTML = "Access Denied. Please log in first...";
-          setTimeout(function () {
-            window.location.href = "/login.html";
-          }, 3000);
-        }
-      };
-      getWatchList();
+  <script>
+    const watchListDiv = document.getElementById("watchListDiv");
+    const logoutButton = document.getElementById("logout");
+    const token = window.localStorage.getItem("movieAppToken");
 
-      const removeButton = document.getElementById("testRemove");
-      removeButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const url = "/api/user/deleteMovie";
-        const data = {
-          movieId: 578,
-        };
-        const rawRes = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "authorization": `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        });
-        if (rawRes.status == 200) {
-          const res = await rawRes.json();
-          console.log(res.message);
-        } else {
-          console.log("Access Denied");
-          setTimeout(function () {
-            window.location.href = "/login.html";
-          }, 1000);
-        }
-        getWatchList();
+    const getWatchList = async () => {
+      const rawRes = await fetch("/api/user/watchList", {
+        headers: {
+          "authorization": `Bearer ${token}`,
+        },
       });
-
-      logoutButton.addEventListener("click", () => {
-        window.localStorage.removeItem("movieAppToken");
-        watchListDiv.innerHTML = "Logging you out...";
+      if (rawRes.status == 200) {
+        const res = await rawRes.json();
+        watchListDiv.innerHTML = "Your watchList: " + res.watchList;
+        loadWatchlist(res.watchList);
+      } else {
+        watchListDiv.innerHTML = "Access Denied. Please log in first...";
         setTimeout(function () {
           window.location.href = "/login.html";
-        }, 2500);
+        }, 3000);
+      }
+    };
+    getWatchList();
+
+    const removeButton = document.getElementById("testRemove");
+    removeButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const url = "/api/user/deleteMovie";
+      const data = {
+        movieId: 578,
+      };
+      const rawRes = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
       });
-    </script>
-  </body>
+      if (rawRes.status == 200) {
+        const res = await rawRes.json();
+        console.log(res.message);
+      } else {
+        console.log("Access Denied");
+        setTimeout(function () {
+          window.location.href = "/login.html";
+        }, 1000);
+      }
+      getWatchList();
+    });
+
+    logoutButton.addEventListener("click", () => {
+      window.localStorage.removeItem("movieAppToken");
+      watchListDiv.innerHTML = "Logging you out...";
+      setTimeout(function () {
+        window.location.href = "/login.html";
+      }, 2500);
+    });
+
+    function loadWatchlist(movies) {
+      let url = "https://api.themoviedb.org/3/find/{external_id}?api_key=<<api_key>>&language=en-US&external_source=2888";
+      fetch(url)
+        .then(results => results.json())
+        .then((data) => {
+          console.log(data);
+        })
+
+      var tempString = "", divName;
+      for (i = 0; i < movies.length; i++) {
+        divName = 'watch' + i;
+        tempString = '<div id="' + divName + '">'
+        tempString += '<p class="title">' + + '</p>';
+        tempString += '</div>';
+      }
+    }
+  </script>
+</body>
+
 </html>
