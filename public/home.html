@@ -1,134 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nextwatch: Home</title>
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="stylesheet" type="text/css" href="general.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextwatch: Home</title>
-  <link rel="icon" href="assets/logo.png" />
-  <link rel="stylesheet" type="text/css" href="general.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-</head>
-
-<body style="text-align: center">
-  <header id="navbar">
-    <nav class="nav-wrapper container">
-      <a href="recs.html" class="home-link">
-        <img id="logo" src="assets/logo.png" />
-        nextwatch
-      </a>
-
-      <button type="button" class="nav-toggle">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <div class="nav-menu">
-        <ul class="nav-links">
-          <li class="nav-item">
-            <a class="nav-link" href="recs.html">Recommendations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="home.html">My Watchlist</a>
-          </li>
-          <li class="nav-item"><button id="logout">Logout</button></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <script src="nav.js"></script>
-
-  <h1>Home</h1>
-  <div id="watchListDiv"></div>
-  <br />
-
-  <button type="button" id="testRemove">Remove from my watchlist</button>
-
-  <script>
-    const watchListDiv = document.getElementById("watchListDiv");
-    const logoutButton = document.getElementById("logout");
-    const token = window.localStorage.getItem("movieAppToken");
-
-    const getWatchList = async () => {
-      const rawRes = await fetch("/api/user/watchList", {
-        headers: {
-          "authorization": `Bearer ${token}`,
-        },
-      });
-      if (rawRes.status == 200) {
-        const res = await rawRes.json();
-        watchListDiv.innerHTML = "Your watchList: " + res.watchList;
-        loadWatchlist(res.watchList);
-      } else {
-        watchListDiv.innerHTML = "Access Denied. Please log in first...";
-        setTimeout(function () {
-          window.location.href = "/login.html";
-        }, 3000);
-      }
-    };
-    getWatchList();
-
-    const removeButton = document.getElementById("testRemove");
-    removeButton.addEventListener("click", async (e) => {
-      e.preventDefault();
-      const url = "/api/user/deleteMovie";
-      const data = {
-        movieId: 578,
-      };
-      const rawRes = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
-      if (rawRes.status == 200) {
-        const res = await rawRes.json();
-        console.log(res.message);
-      } else {
-        console.log("Access Denied");
-        setTimeout(function () {
-          window.location.href = "/login.html";
-        }, 1000);
-      }
-      getWatchList();
-    });
-
-    logoutButton.addEventListener("click", () => {
-      window.localStorage.removeItem("movieAppToken");
-      watchListDiv.innerHTML = "Logging you out...";
-      setTimeout(function () {
-        window.location.href = "/login.html";
-      }, 2500);
-    });
-
-    // TRYING TO LOAD WATCHLIST POSTERS HERE
-    function loadWatchlist(movies) {
-      var tempString = "", divName;
-      // retrieve and store baseImageURL and poster size here
-      // can hard code or get from config or some other way?
-      var baseImageURL = "";
-      var posterSize = "";
-      for (i = 0; i < movies.length; i++) {
-        divName = 'watch' + i;
-        tempString = '<div id="' + divName + '">'
-        // need to fetch the movies[i]
-        posterURL = baseImageURL + posterSize + /*poster path of the movie*/;
-        tempString = '<img src="' + posterURL + '">';
-        tempString += '<div class="title">' + /*get original_title here*/ + '</div>';
-        tempString += '<div class="synopsis">' + /*get overview*/ + '</div>';
-        
-        tempString += '<input type="button" class="removeButton" value="Remove from watchlist"';
-        tempString += ' id="' + movies[i] + '">';
-        tempString += '</div>';
-
-        document.write(tempString);
-        tempString = "";
-      }
+  <style type="text/css">
+    .movieDisplay {
+      width: 80%;
+      background-color: #000000;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 20px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-  </script>
-</body>
 
+    .search-container {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px 10px 30px 10px;
+    }
+
+    .search-form {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .search-container input,
+    select {
+      border-radius: 15px;
+      background-color: #fff;
+      height: 50px;
+      font-size: 24px;
+      padding: 10px;
+      border: none;
+      margin-bottom: 10px;
+    }
+
+    #personSearch,
+    #moodDrop {
+      width: 500px;
+    }
+
+    #search {
+      width: 150px;
+      color: #000;
+      background-color: #ec911b;
+    }
+
+    .movieBlock {
+      padding: 10px;
+    }
+
+    .moviePoster {
+      position: relative;
+    }
+
+    .moreInfo {
+      position: absolute;
+      width: 200px;
+      margin-left: 0;
+      margin-top: -280px;
+      opacity: 0;
+      color: #fff;
+      padding: 5px;
+    }
+
+    .movieTitle {
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 7px;
+    }
+
+    .synopsis {
+      font-size: 15px;
+      padding-bottom: 7px;
+    }
+
+    .addButton {
+      width: 150px;
+      margin-top: 5px;
+      border: 2px solid #fff;
+      border-radius: 6px;
+      color: #fff;
+      background: transparent;
+      padding: 7px;
+    }
+
+    input[type="image"] {
+      width: 50px;
+      height: 50px;
+    }
+
+    .addButton:hover {
+      background-color: #7342a3;
+      border: 2px solid #7342a3;
+    }
+
+    .movieBlock.interested .moreInfo {
+      opacity: 1;
+    }
+
+    .movieBlock.interested .moviePoster {
+      opacity: 0;
+    }
+  </style>
+
+  <body style="text-align: center">
+    <header id="navbar">
+      <nav class="nav-wrapper container">
+        <a href="recs.html" class="home-link">
+          <img id="logo" src="assets/logo.png" />
+          nextwatch
+        </a>
+
+        <button type="button" class="nav-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <div class="nav-menu">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a class="nav-link" href="recs.html">Recommendations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">My Watchlist</a>
+            </li>
+            <li class="nav-item"><button id="logout">Logout</button></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <script src="nav.js"></script>
+
+    <h1>Home</h1>
+    <div id="watchListDiv" class="movieDisplay"></div>
+    <br />
+
+    <button type="button" id="testRemove">Remove from my watchlist</button>
+    <script src="home.js"></script>
+  </body>
 </html>
