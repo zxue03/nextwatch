@@ -128,6 +128,7 @@ function loadMovies(movies) {
         console.log(res.message);
       } else {
         console.log("Access Denied");
+        alert("Please login to add this movie to your watchlist");
         setTimeout(function () {
           window.location.href = "/login.html";
         }, 3000);
