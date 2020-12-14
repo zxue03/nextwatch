@@ -143,8 +143,12 @@ function searchPerson(person) {
   fetch(url)
     .then(results => results.json())
     .then((data) => {
-      personID = data.results[0].id;
-      getMovies(personID);
+      if (data.results.length <= 0) {
+        alert("No person found. Try a different name.");
+      } else {
+        personID = data.results[0].id;
+        getMovies(personID);
+      }
     })
     .catch(function (err) {
       alert(err);
