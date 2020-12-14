@@ -61,11 +61,22 @@
           <li class="nav-item">
             <a class="nav-link" href="home.html">My Watchlist</a>
           </li>
-          <!-- <script>
-            localStorage.getItem("movieAppToken")?document.write('<li class="nav-item"><button id="logout">Logout</button></li>'):document.write('<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>')
-          </script> -->
+          <script>
+            if (localStorage.getItem("movieAppToken")) {
+              document.write('<li class="nav-item"><button id="logout">Logout</button></li>');
+              const logoutButton = document.getElementById("logout");
 
-          
+              logoutButton.addEventListener("click", () => {
+                window.localStorage.removeItem("movieAppToken");
+                watchListDiv.innerHTML = "Logging you out...";
+                setTimeout(function () {
+                  window.location.href = "/login.html";
+                }, 1000);
+              });
+            } else {
+              document.write('<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>');
+            }
+          </script>
         </ul>
       </div>
     </nav>
@@ -83,7 +94,7 @@
     ];
 
     const subMoods = [
-//    ["Action", "Adventure", "Western", "Science Fiction", "Mystery"],
+      //    ["Action", "Adventure", "Western", "Science Fiction", "Mystery"],
       ["Action", "Adventure"],
       ["Family", "Fantasy", "Animation"],
       ["Romantic", "Comedy"],
@@ -166,16 +177,6 @@
 
   <br />
   <script>
-    // const logoutButton = document.getElementById("logout");
-
-    // logoutButton.addEventListener("click", () => {
-    //   window.localStorage.removeItem("movieAppToken");
-    //   watchListDiv.innerHTML = "Logging you out...";
-    //   setTimeout(function () {
-    //     window.location.href = "/login.html";
-    //   }, 1000);
-    // });
-
     const searchForm = document.getElementById("search-form");
 
     searchForm.addEventListener("submit", (e) => {
