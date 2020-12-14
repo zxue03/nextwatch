@@ -58,12 +58,11 @@
           <li class="nav-item">
             <a class="nav-link" href="recs.html">Recommendations</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="home.html">My Watchlist</a>
-          </li>
+          
           <script>
             if (localStorage.getItem("movieAppToken")) {
               document.write('<li class="nav-item"><button id="logout">Logout</button></li>');
+              document.write('<li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>');
               const logoutButton = document.getElementById("logout");
 
               logoutButton.addEventListener("click", () => {
