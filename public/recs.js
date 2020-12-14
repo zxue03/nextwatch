@@ -5,7 +5,7 @@ function getConfig() {
       return result.json();
     })
     .then((data) => {
-      baseImageURL = data.images.base_url;
+      baseImageURL = data.images.secure_base_url;
       posterSize = data.images.poster_sizes[2];
       console.log('fetched config:', data);
 
