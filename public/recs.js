@@ -63,9 +63,7 @@ function loadTrending() {
             console.log(res.message);
           } else {
             console.log("Access Denied");
-            setTimeout(function () {
-              window.location.href = "/login.html";
-            }, 3000);
+            alert("Please login to add this movie to your watchlist");
           }
           e.target.src = "assets/added.png";
           e.target.value = "true";
