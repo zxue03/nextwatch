@@ -30,7 +30,18 @@ function loadTrending() {
 
         toWrite += '<div class="moreInfo">';
         toWrite += '<div class="movieTitle">' + data.results[i].original_title + '</div>';
-        toWrite += '<div class="synopsis">' + data.results[i].overview + '</div>';
+        var overview
+        if(data.results[i].overview.length > 320){
+          //trim the string to the maximum length
+          overview =data.results[i].overview.substr(0, 320);
+          //re-trim if we are in the middle of a word and 
+          overview = overview.substr(0, overview.lastIndexOf(".")+1) + ".."
+        }
+        else{
+          overview = data.results[i].overview;
+        }
+        
+        toWrite += '<div class="synopsis">' + overview + '</div>';
         //check if movie is already in their
 
         toWrite += '<input type="image" class="Button" src="assets/add.png"';
@@ -94,7 +105,17 @@ function loadMovies(movies) {
 
       toWrite += '<div class="moreInfo">';
       toWrite += '<div class="movieTitle">' + movies[i].original_title + '</div>';
-      toWrite += '<div class="synopsis">' + movies[i].overview + '</div>';
+      var overview
+      if(movies[i].overview.length > 320){
+        //trim the string to the maximum length
+        overview = movies[i].overview.substr(0, 320);
+        //re-trim if we are in the middle of a word and 
+        overview = overview.substr(0, overview.lastIndexOf(".")+1) + ".."
+      }
+      else{
+        overview = movies[i].overview;
+      }
+      toWrite += '<div class="synopsis">' + overview + '</div>';
 
       toWrite += '<input type="image" class="Button" src="assets/add.png"';
       toWrite += ' id="' + movies[i].id + '" value="false">';
