@@ -57,6 +57,8 @@ const getWatchListMovie = async () => {
 
 logoutButton.addEventListener("click", () => {
     window.localStorage.removeItem("movieAppToken");
+    watchListDiv.classList.remove("movieDisplay");
+    watchListDiv.style.color = "white"
     watchListDiv.innerHTML = "Logging you out...";
     setTimeout(function () {
         window.location.href = "/login.html";
