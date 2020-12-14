@@ -131,7 +131,7 @@ function loadMovies(movies) {
         alert("Please login to add this movie to your watchlist");
         setTimeout(function () {
           window.location.href = "/login.html";
-        }, 3000);
+        }, 2000);
       }
       e.target.src = "assets/added.png";
       e.target.value = "true";
