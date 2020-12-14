@@ -1,175 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nextwatch - Recommendations</title>
-    <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css" />
-    <link rel="stylesheet" type="text/css" href="movie.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="recs.js"></script>
 
-    <script>
-      const mood = 0;
-      const person = 1;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextwatch - Recommendations</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" type="text/css" href="general.css" />
+  <link rel="stylesheet" type="text/css" href="movie.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="recs.js"></script>
 
-      $(document).ready(function () {
-        $("#searchType").change(function () {
-          var selected = $("#searchType")[0].selectedIndex;
-          if (selected == mood) {
-            $("#personSearch").hide();
-            $("#moodDrop").show();
-          } else if (selected == person) {
-            $("#moodDrop").hide();
-            $("#personSearch").show();
-          }
-        });
+  <script>
+    const mood = 0;
+    const person = 1;
 
-        $(".movieBlock").hover(
-          function () {
-            $(this).addClass("interested");
-          },
-          function () {
-            $(this).removeClass("interested");
-          }
-        );
+    $(document).ready(function () {
+      $("#searchType").change(function () {
+        var selected = $("#searchType")[0].selectedIndex;
+        if (selected == mood) {
+          $("#personSearch").hide();
+          $("#moodDrop").show();
+        } else if (selected == person) {
+          $("#moodDrop").hide();
+          $("#personSearch").show();
+        }
       });
-    </script>
-  </head>
 
-  <body style="text-align: center">
-    <header id="navbar">
-      <nav class="nav-wrapper container">
-        <a href="recs.html" class="home-link">
-          <img id="logo" src="assets/logo.png" />
-          nextwatch
-        </a>
+      $(".movieBlock").hover(
+        function () {
+          $(this).addClass("interested");
+        },
+        function () {
+          $(this).removeClass("interested");
+        }
+      );
+    });
+  </script>
+</head>
 
-        <button type="button" class="nav-toggle">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+<body style="text-align: center">
+  <header id="navbar">
+    <nav class="nav-wrapper container">
+      <a href="recs.html" class="home-link">
+        <img id="logo" src="assets/logo.png" />
+        nextwatch
+      </a>
 
-        <div class="nav-menu">
-          <ul class="nav-links">
-            <li class="nav-item">
-              <a class="nav-link" href="recs.html">Recommendations</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="home.html">My Watchlist</a>
-            </li>
-            <li class="nav-item"><button id="logout">Logout</button></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+      <button type="button" class="nav-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-    <script src="nav.js"></script>
-    <script language="javascript">
-      const moodTitles = [
-        "Adventure from the Couch",
-        "Family Movie Night",
-        "Date Night",
-        "Out of this World",
-        "Bust out the Tissues",
-        "When You Need to Laugh",
-      ];
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a class="nav-link" href="recs.html">Recommendations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">My Watchlist</a>
+          </li>
+          <li class="nav-item"><button id="logout">Logout</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-      const subMoods = [
-        ["action", "adventure", "western", "science fiction", "mystery"],
-        ["family", "fantasy", "animation"],
-        ["romantic", "comedy"],
-        ["fantasy", "science fiction"],
-        ["drama", "romance"],
-        ["comedy"],
-      ];
+  <script src="nav.js"></script>
+  <script language="javascript">
+    const moodTitles = [
+      "Adventure from the Couch",
+      "Family Movie Night",
+      "Date Night",
+      "Out of this World",
+      "Bust out the Tissues",
+      "When You Need to Laugh",
+    ];
 
-      function Mood(title, subgenres) {
-        this.title = title;
-        this.subgenres = subgenres;
-      }
+    const subMoods = [
+//    ["Action", "Adventure", "Western", "Science Fiction", "Mystery"],
+      ["Action", "Adventure"],
+      ["Family", "Fantasy", "Animation"],
+      ["Romantic", "Comedy"],
+      ["Fantasy", "Science Fiction"],
+      ["Drama", "Romance"],
+      ["Comedy"],
+    ];
 
-      var moods = [];
+    let url = "https://api.themoviedb.org/3/genre/movie/list?api_key=9aadfff8aa707747cec36dc03dfe8b0f&language=en-US";
+    var genresList = fetch(url)
+      .then(results => results.json())
+      .then((data) => {
+        var genres = data.genres;
+        setMoods(genres);
+      })
+
+    function Mood(title, subgenres) {
+      this.title = title;
+      this.subgenres = subgenres;
+    }
+
+    var moods = [];
+    function setMoods(allGenres) {
+      var subG, newMood;
+      var subID = [];
       for (i = 0; i < moodTitles.length; i++) {
-        var newMood = new Mood(moodTitles[i], subMoods[i]);
+        subG = subMoods[i];
+        for (j = 0; j < subG.length; j++) {
+          for (k = 0; k < allGenres.length; k++) {
+            if (subG[j] == allGenres[k].name) {
+              subID.push(allGenres[k].id);
+            }
+          }
+        }
+        subMoods[i] = subID;
+        newMood = new Mood(moodTitles[i], subID);
         moods.push(newMood);
+        subID = [];
+      }
+    }
+  </script>
+
+  <div class="search-container">
+    <form class="search-form" id="search-form">
+      <select id="searchType">
+        <option value="mood">Mood</option>
+        <option value="person">Actor/Actress</option>
+      </select>
+      <br />
+      <br />
+      <input type="text" id="personSearch" style="display: none"
+        placeholder="Enter the name of an actor/actress here" />
+      <script language="javascript">
+        var selectString = "<select id='moodDrop'>";
+        selectString += "<option value='' selected hidden>Select a mood below</option>";
+        for (i = 0; i < moodTitles.length; i++) {
+          selectString += "<option>" + moodTitles[i] + "</option>";
+        }
+        selectString += "</select>";
+        document.writeln(selectString);
+      </script>
+      <br />
+      <br />
+      <input type="submit" id="search" value="Search" />
+    </form>
+  </div>
+  <div id="watchListDiv" style="display: hidden"></div>
+
+  <h2 class="movieDisplay">Recommendations</h2>
+  <div class="movieDisplay">
+    <script>
+      var s = "";
+      for (i = 0; i < 20; i++) {
+        s = '<div class="movieBlock" id="top' + i + '"></div>';
+        document.write(s);
+        s = "";
       }
     </script>
+  </div>
 
-    <div class="search-container">
-      <form class="search-form" id="search-form">
-        <select id="searchType">
-          <option value="mood">Mood</option>
-          <option value="person">Actor/Actress</option>
-        </select>
-        <br />
-        <br />
-        <input
-          type="text"
-          id="personSearch"
-          style="display: none"
-          placeholder="Enter the name of an actor/actress here"
-        />
-        <script language="javascript">
-          var selectString = "<select id='moodDrop'>";
-          for (i = 0; i < moodTitles.length; i++) {
-            selectString += "<option>" + moodTitles[i] + "</option>";
-          }
-          selectString += "</select>";
-          document.writeln(selectString);
-        </script>
-        <br />
-        <br />
-        <input type="submit" id="search" value="Search" />
-      </form>
-    </div>
-    <div id="watchListDiv" style="display: hidden"></div>
+  <br />
+  <script>
+    const logoutButton = document.getElementById("logout");
 
-    <h2 class="movieDisplay">Recommendations</h2>
-    <div class="movieDisplay">
-      <script>
-        var s = "";
-        for (i = 0; i < 20; i++) {
-          s = '<div class="movieBlock" id="top' + i + '"></div>';
-          document.write(s);
-          s = "";
+    logoutButton.addEventListener("click", () => {
+      window.localStorage.removeItem("movieAppToken");
+      watchListDiv.innerHTML = "Logging you out...";
+      setTimeout(function () {
+        window.location.href = "/login.html";
+      }, 1000);
+    });
+
+    const searchForm = document.getElementById("search-form");
+
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      searchType = document.getElementById("searchType");
+      typeSelected = searchType.selectedIndex;
+
+      if (typeSelected == mood) {
+        var selectedMood = document.getElementById("moodDrop").selectedIndex;
+        if (selectedMood <= 0) {
+          alert("Please choose a mood from the dropdown menu");
+        } else {
+          searchMood(selectedMood - 1);
         }
-      </script>
-    </div>
-
-    <br />
-    <script>
-      const logoutButton = document.getElementById("logout");
-
-      logoutButton.addEventListener("click", () => {
-        window.localStorage.removeItem("movieAppToken");
-        watchListDiv.innerHTML = "Logging you out...";
-        setTimeout(function () {
-          window.location.href = "/login.html";
-        }, 1000);
-      });
-
-      const searchForm = document.getElementById("search-form");
-
-      searchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        searchType = document.getElementById("searchType");
-        typeSelected = searchType.selectedIndex;
-
-        if (typeSelected == mood) {
-          alert("mood");
-        } else if (typeSelected == person) {
-          searched = document.getElementById("personSearch").value;
-          //form validation
-          if (searched == "") {
-            alert("Please enter an actor's name for your search");
-          } else {
-            searchPerson(searched);
-          }
+      } else if (typeSelected == person) {
+        searched = document.getElementById("personSearch").value;
+        //form validation
+        if (searched == "") {
+          alert("Please enter an actor's name for your search");
+        } else {
+          searchPerson(searched);
         }
-      });
-    </script>
-  </body>
+      }
+    });
+  </script>
+</body>
+
 </html>
