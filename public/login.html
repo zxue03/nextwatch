@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="box.css" />
-    <!-- <style type="text/css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" type="text/css" href="general.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="box.css" />
+  <!-- <style type="text/css">
 
         *:focus {outline:none !important}
         .container-form {
@@ -54,103 +55,90 @@
         }
         A {text-decoration: none;}
         </style> -->
-  </head>
+</head>
 
-  <body style="text-align: center">
-    <header id="navbar">
-      <nav class="nav-wrapper container">
-        <a href="recs.html" class="home-link">
-          <img id="logo" src="assets/logo.png" />
-          nextwatch
-        </a>
+<body style="text-align: center">
+  <header id="navbar">
+    <nav class="nav-wrapper container">
+      <a href="recs.html" class="home-link">
+        <img id="logo" src="assets/logo.png" />
+        nextwatch
+      </a>
 
-        <button type="button" class="nav-toggle">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+      <button type="button" class="nav-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-        <div class="nav-menu">
-          <ul class="nav-links">
-            <li class="nav-item">
-              <a class="nav-link" href="recs.html">Recommendations</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.html">Register</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <script src="nav.js"></script>
-
-    <div class="container-form">
-      <img class="big-logo" src="assets/logo.png" />
-      <h1>Login</h1>
-      <form id="loginForm">
-        <br />
-        <input
-          placeholder="email"
-          type="text"
-          id="email"
-          name="email"
-          class="rounded-input"
-          required
-        />
-        <br />
-        <br />
-        <input
-          placeholder="password"
-          type="password"
-          id="password"
-          name="password"
-          class="rounded-input"
-          required
-        />
-        <br />
-        <br />
-        <input type="submit" class="login-updated-button" value="Login" />
-      </form>
-      <br />
-      <div style="color: #ffffff">
-        Don't have an account? <br /><br />
-        <a href="register.html" class="login-updated-button">Register here</a>
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a class="nav-link" href="recs.html">Recommendations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.html">Register</a>
+          </li>
+        </ul>
       </div>
-    </div>
-    <br />
-    <div id="result"></div>
+    </nav>
+  </header>
+  <script src="nav.js"></script>
 
-    <script>
-      const loginForm = document.getElementById("loginForm");
-      const result = document.getElementById("result");
-      const login = async (e) => {
-        e.preventDefault();
-        const url = "/api/user/login";
-        const data = {
-          email: loginForm.email.value,
-          password: loginForm.password.value,
-        };
-        const rawRes = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        const res = await rawRes.json();
-        if (rawRes.status == 200) {
-          result.innerHTML =
-            "Successfully logged in! Directing you to the home page";
-          console.log(res);
-          window.localStorage.setItem("movieAppToken", res.token);
-          setTimeout(function () {
-            window.location.href = "/home.html";
-          }, 1000);
-        } else {
-          result.innerHTML = res.message;
-        }
+  <div class="container-form">
+    <img class="big-logo" src="assets/logo.png" />
+    <h1>Login</h1>
+    <form id="loginForm">
+      <br />
+      <input placeholder="email" type="text" id="email" name="email" class="rounded-input" required />
+      <br />
+      <br />
+      <input placeholder="password" type="password" id="password" name="password" class="rounded-input" required />
+      <br />
+      <br />
+      <div id="result"></div>
+      <input type="submit" class="submit-button" value="Login" />
+    </form>
+    <br />
+    <div style="color: #ffffff">
+      Don't have an account? <br /><br />
+      <a href="register.html" style="color:#ec911b">Register here</a>
+    </div>
+  </div>
+  <br />
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const result = document.getElementById("result");
+    const login = async (e) => {
+      e.preventDefault();
+      const url = "/api/user/login";
+      const data = {
+        email: loginForm.email.value,
+        password: loginForm.password.value,
       };
-      loginForm.addEventListener("submit", login);
-    </script>
-  </body>
+      const rawRes = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const res = await rawRes.json();
+      if (rawRes.status == 200) {
+        result.innerHTML =
+          "Successfully logged in! Directing you to the home page";
+        console.log(res);
+        window.localStorage.setItem("movieAppToken", res.token);
+        setTimeout(function () {
+          window.location.href = "/home.html";
+        }, 1000);
+      } else {
+        result.innerHTML = res.message;
+      }
+    };
+    loginForm.addEventListener("submit", login);
+  </script>
+</body>
+
 </html>

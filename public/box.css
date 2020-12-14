@@ -13,10 +13,9 @@
 }
 
 .big-logo {
-    height: 150px;
+    height: 100px;
     width: auto;
     margin: 0px 10px 10px 10px;
-    padding-top: 25px;
 }
 
 .container-form input {
@@ -35,10 +34,8 @@
 }
 
 .submit-button {
-/* remove default behavior */
     appearance: none;
     -webkit-appearance: none;
-/* usual styles */
     padding: 10px;   
     border: none;
     background-color: #7342A3;
@@ -46,6 +43,7 @@
     font-weight: 600;
     border-radius: 5px;
     width: 10%; 
+    font-size: 16px;
 }
 
 .submit-button:hover {

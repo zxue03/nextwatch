@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-    <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" type="text/css" href="general.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="box.css" />
 
-    <!-- <style type="text/css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" type="text/css" href="general.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="box.css" />
+
+  <!-- <style type="text/css">
 
     *:focus {outline:none !important}
     .container-form {
@@ -54,83 +55,83 @@
     }
     A {text-decoration: none;}
     </style> -->
-  </head>
-  <body style="text-align: center">
-    <header id="navbar">
-      <nav class="nav-wrapper container">
-        <a href="recs.html" class="home-link">
-          <img id="logo" src="assets/logo.png">
-          nextwatch
-        </a>
-  
-        <button type="button" class="nav-toggle">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-  
-        <div class="nav-menu">
-          <ul class="nav-links">
-            <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
-            <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <script src="nav.js"></script>
-    <img class="big-logo" src="assets/logo.png" />
+</head>
 
+<body style="text-align: center">
+  <header id="navbar">
+    <nav class="nav-wrapper container">
+      <a href="recs.html" class="home-link">
+        <img id="logo" src="assets/logo.png">
+        nextwatch
+      </a>
+
+      <button type="button" class="nav-toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <script src="nav.js"></script>
+
+  <div class="container-form">
+    <img class="big-logo" src="assets/logo.png" />
     <h1>Register</h1>
-    <div class="container-form">
     <form id="registerForm">
       <br />
-      <label for="email"></label>
       <input placeholder="email" type="text" id="email" name="email" class="rounded-input" required />
       <br />
       <br />
-      <label for="password"></label>
       <input placeholder="password" type="password" id="password" name="password" class="rounded-input" required />
       <br />
       <br />
       <div id="result"></div>
-      <input type="submit" class="register-button" value="Register" />
+      <input type="submit" class="submit-button" value="Register" />
     </form>
     <br />
-    </div>
     <div style="color: #ffffff">
       Already have an account? <br /><br />
-      <a href="login.html" class="register-button">Login here</a>
+      <a href="login.html" style="color:#ec911b">Login here</a>
     </div>
+  </div>
 
-    <script>
-      const registerForm = document.getElementById("registerForm");
-      const result = document.getElementById("result");
-      const register = async (e) => {
-        e.preventDefault();
-        const url = "/api/user/register";
-        const data = {
-          email: registerForm.email.value,
-          password: registerForm.password.value,
-        };
-        const rawRes = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        const res = await rawRes.json();
-        if (rawRes.status == 200) {
-          result.innerHTML =
-            "Successdully resgitered! Directing you to the login page...";
-          setTimeout(function () {
-            window.location.href = "/login.html";
-          }, 1000);
-        } else {
-          result.innerHTML = res.message;
-        }
+  <script>
+    const registerForm = document.getElementById("registerForm");
+    const result = document.getElementById("result");
+    const register = async (e) => {
+      e.preventDefault();
+      const url = "/api/user/register";
+      const data = {
+        email: registerForm.email.value,
+        password: registerForm.password.value,
       };
-      registerForm.addEventListener("submit", register);
-    </script>
-  </body>
+      const rawRes = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const res = await rawRes.json();
+      if (rawRes.status == 200) {
+        result.innerHTML =
+          "Successdully resgitered! Directing you to the login page...";
+        setTimeout(function () {
+          window.location.href = "/login.html";
+        }, 1000);
+      } else {
+        result.innerHTML = res.message;
+      }
+    };
+    registerForm.addEventListener("submit", register);
+  </script>
+</body>
+
 </html>
