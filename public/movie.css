@@ -9,6 +9,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  perspective: 1000px;
 }
 .search-container {
   width: 80%;
@@ -56,9 +57,12 @@ select:hover {
 
 .movieBlock {
   padding: 10px;
-  perspective: 1000px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
 }
 .movieBlock:hover {
+  transition: 1s;
+  transform-style: preserve-3d;
   transform: rotateY(180deg);
 }
 .moviePoster {
@@ -112,14 +116,12 @@ input[type="image"] {
 
 .movieBlock.interested .moreInfo {
   opacity: 1;
-  transition: 0.8s;
+  transition: 1s;
   transform-style: preserve-3d;
-  transform: rotateY(180deg);
 }
 
 .movieBlock.interested .moviePoster {
   opacity: 0;
-  transition: 0.8s;
+  transition: 1s;
   transform-style: preserve-3d;
-  transform: rotateY(180deg);
 }
