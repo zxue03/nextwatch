@@ -129,9 +129,6 @@ function loadMovies(movies) {
       } else {
         console.log("Access Denied");
         alert("Please login to add this movie to your watchlist");
-        setTimeout(function () {
-          window.location.href = "/login.html";
-        }, 2000);
       }
       e.target.src = "assets/added.png";
       e.target.value = "true";
