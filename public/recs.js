@@ -1,3 +1,6 @@
+const token = window.localStorage.getItem("movieAppToken");
+watchListId = []
+
 function getConfig() {
   let url = "https://api.themoviedb.org/3/configuration?api_key=9aadfff8aa707747cec36dc03dfe8b0f";
   fetch(url)
@@ -212,5 +215,19 @@ function getMovies(personID) {
     });
 
 }
+
+const getWatchListId = async () => {
+  if(token){
+    const rawRes = await fetch("/api/user/watchList", {
+      headers: {
+      "authorization": `Bearer ${token}`,
+      },
+    });
+    if (rawRes.status == 200) {
+        const res = await rawRes.json();
+        watchListId = res.watchList;
+    }
+  }
+};
 
 document.addEventListener('DOMContentLoaded', getConfig);
