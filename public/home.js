@@ -83,14 +83,18 @@ function loadWatchlist(heading) {
         // need to fetch the movies[i]
         
         toWrite += '<img class="moviePoster"';
-          toWrite += 'src="' + posterURL + '">';
+        toWrite += 'src="' + posterURL + '">';
 
-          toWrite += '<div class="moreInfo">';
-          toWrite += '<div class="movieTitle">' + movies[i].original_title + '</div>';
-          toWrite += '<div class="synopsis">' + movies[i].overview + '</div>';
-          toWrite += '<input type="image" class="Button" src="assets/remove.png"';
-          toWrite += ' id="' + movies[i].id + '" value="false">';
-          toWrite += '</div>';
+        toWrite += '<div class="moreInfo">';
+        toWrite += '<div class="movieTitle">' + movies[i].original_title;
+        date = movies[i].release_date;
+        console.log(date);
+        toWrite += ' (' + date.substring(0,4) + ')</div>';
+        toWrite += '<div class="synopsis">' + movies[i].overview + '</div>';
+  
+        toWrite += '<input type="image" class="Button" src="assets/remove.png"';
+        toWrite += ' id="' + movies[i].id + '" value="false">';
+        toWrite += '</div>';
         toWrite += "</div>";
 
         watchListContent += toWrite;
