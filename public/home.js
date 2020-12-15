@@ -148,7 +148,7 @@ function loadWatchlist() {
 
 
 const main = async () => {
-    getConfig();
+    await getConfig();
     await getWatchListId();
     await getWatchListMovie();
     loadWatchlist();
