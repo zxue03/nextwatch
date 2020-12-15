@@ -1,6 +1,6 @@
 *:focus {outline:none !important}
 .container-form {
-    background-color: #1a1a1a;
+    background-color: #141414;
     width: 400px;
     clear: both;
     margin-top: 25px;
@@ -63,5 +63,9 @@
 
     .box-heading {
         font-size: 20px;
+    }
+
+    .submit-button {
+        padding: 5px;
     }
 }

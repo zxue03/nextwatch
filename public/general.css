@@ -194,7 +194,7 @@ input:focus, select:focus {
   outline: none;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
     .nav-toggle {
         display: none;
     }
@@ -219,6 +219,14 @@ input:focus, select:focus {
         width: 100%;
         height: 100%;
         font-size: large;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #navbar .nav-menu,
+    #navbar.opened .nav-menu {
+        position: absolute;
+        z-index: 10;
     }
 }
 

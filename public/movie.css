@@ -1,6 +1,6 @@
 .movieDisplay {
   width: 80%;
-  background-color: #000000;
+  background-color: #141414;
   margin-left: auto;
   margin-right: auto;
   padding-top: 20px;
@@ -15,7 +15,6 @@
 
 #displayHeading {
   font-size: large;
-  text-decoration: underline;
 }
 
 .search-container {
