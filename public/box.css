@@ -55,4 +55,8 @@
     .container-form {
         width: 90%;
     }
+
+    .box-heading {
+        font-size: 20px;
+    }
 }
