@@ -87,17 +87,7 @@ function loadWatchlist(heading) {
 
           toWrite += '<div class="moreInfo">';
           toWrite += '<div class="movieTitle">' + movies[i].original_title + '</div>';
-          if(movies[i].overview.length > 320){
-            //trim the string to the maximum length
-            overview =movies[i].overview.substr(0, 320);
-            //re-trim if we are in the middle of a word and 
-            overview = overview.substr(0, overview.lastIndexOf(".")+1) + ".."
-          }
-          else{
-            overview = movies[i].overview;
-          }
-          
-          toWrite += '<div class="synopsis">' + overview + '</div>';
+          toWrite += '<div class="synopsis">' + movies[i].overview + '</div>';
           toWrite += '<input type="image" class="Button" src="assets/remove.png"';
           toWrite += ' id="' + movies[i].id + '" value="false">';
           toWrite += '</div>';
