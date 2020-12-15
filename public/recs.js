@@ -25,6 +25,7 @@ function loadTrending() {
     .then(results => results.json())
     .then((data) => {
       var getDiv, posterURL, toWrite = "";
+      document.getElementById('displayHeading').innerHTML = "<h2>Trending</h2>";
       for (i = 0; i < data.results.length; i++) {
         getDiv = 'top' + i;
         posterURL = baseImageURL + posterSize + data.results[i].poster_path;
@@ -45,10 +46,16 @@ function loadTrending() {
         // }
         
         toWrite += '<div class="synopsis">' + overview + '</div>';
-        //check if movie is already in their
-
-        toWrite += '<input type="image" class="Button" src="assets/add.png"';
-        toWrite += ' id="' + data.results[i].id + '" value="false">';
+        
+        toWrite += '<input type="image" class="Button"';
+        //check if movie is already in there
+        currMovie = "" + data.results[i].id;
+        if (watchListId.indexOf(currMovie) != -1) {
+          toWrite += 'src="assets/added.png"';
+        } else {
+          toWrite += 'src="assets/add.png"';
+        }
+        toWrite += ' id="' + data.results[i].id + '">';
         toWrite += '</div>';
 
         document.getElementById(getDiv).innerHTML = toWrite;
@@ -75,12 +82,11 @@ function loadTrending() {
           if (rawRes.status == 200) {
             const res = await rawRes.json();
             console.log(res.message);
+            e.target.src = "assets/added.png";
           } else {
             console.log("Access Denied");
             alert("Please login to add this movie to your watchlist");
           }
-          e.target.src = "assets/added.png";
-          e.target.value = "true";
         });
       });
     })
@@ -95,6 +101,7 @@ function loadTrending() {
 
 function loadMovies(movies) {
   var getDiv, posterURL, toWrite = "";
+  document.getElementById('displayHeading').innerHTML = "<h2>Our Recommendations</h2>";
 
   for (i = 0; i < 20; i++) {
     getDiv = 'top' + i;
@@ -120,8 +127,15 @@ function loadMovies(movies) {
       }
       toWrite += '<div class="synopsis">' + overview + '</div>';
 
-      toWrite += '<input type="image" class="Button" src="assets/add.png"';
-      toWrite += ' id="' + movies[i].id + '" value="false">';
+      toWrite += '<input type="image" class="Button"';
+      //check if movie is already in there
+      currMovie = "" + movies[i].id;
+      if (watchListId.indexOf(currMovie) != -1) {
+        toWrite += 'src="assets/added.png"';
+      } else {
+        toWrite += 'src="assets/add.png"';
+      }
+      toWrite += ' id="' + movies[i].id + '">';
       toWrite += '</div>';
 
       document.getElementById(getDiv).innerHTML = toWrite;
@@ -148,12 +162,11 @@ function loadMovies(movies) {
       if (rawRes.status == 200) {
         const res = await rawRes.json();
         console.log(res.message);
+        e.target.src = "assets/added.png";
       } else {
         console.log("Access Denied");
         alert("Please login to add this movie to your watchlist");
       }
-      e.target.src = "assets/added.png";
-      e.target.value = "true";
     });
   });
 }
@@ -229,5 +242,12 @@ const getWatchListId = async () => {
     }
   }
 };
+
+const main = async () => {
+  await getWatchListId();
+}
+
+main();
+
 
 document.addEventListener('DOMContentLoaded', getConfig);

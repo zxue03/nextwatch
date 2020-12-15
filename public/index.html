@@ -54,8 +54,30 @@
       <div class="nav-menu">
         <ul class="nav-links">
           <li class="nav-item"><a class="nav-link" href="recs.html">Recommendations</a></li>
-          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-        </ul>
+          <script>
+            if (localStorage.getItem("movieAppToken")) {
+              document.write(
+                '<li class="nav-item"><a class="nav-link" href="home.html">My Watchlist</a></li>'
+              );
+              document.write(
+                '<li class="nav-item"><button id="logout">Logout</button></li>'
+              );
+              const logoutButton = document.getElementById("logout");
+
+              logoutButton.addEventListener("click", () => {
+                window.localStorage.removeItem("movieAppToken");
+
+                setTimeout(function () {
+                  window.location.href = "/login.html";
+                }, 1000);
+              });
+            } else {
+              document.write(
+                '<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>'
+              );
+            }
+          </script>
+      </ul>
       </div>
     </nav>
   </header>
