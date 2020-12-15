@@ -10,6 +10,12 @@
   flex-wrap: wrap;
   justify-content: center;
   perspective: 1000px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+#displayHeading {
+  font-size: large;
+  text-decoration: underline;
 }
 
 .search-container {
@@ -52,7 +58,7 @@ select:hover {
   background-color: #ec911b;
 }
 #search:hover {
-  background-color: #f1d8b6;
+  background-color: #ffd293;
   cursor: pointer;
 }
 
