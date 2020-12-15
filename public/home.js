@@ -150,7 +150,7 @@ function loadWatchlist(heading) {
 
 
 const main = async () => {
-    getConfig();
+    await getConfig();
     await getWatchListId();
     await getWatchListMovie();
     loadWatchlist("Your Watchlist");
