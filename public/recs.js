@@ -1,9 +1,9 @@
 const token = window.localStorage.getItem("movieAppToken");
 watchListId = []
 
-async function getConfig() {
+function getConfig() {
   let url = "https://api.themoviedb.org/3/configuration?api_key=9aadfff8aa707747cec36dc03dfe8b0f";
-  await fetch(url)
+  fetch(url)
     .then((result) => {
       return result.json();
     })
@@ -11,7 +11,6 @@ async function getConfig() {
       baseImageURL = data.images.secure_base_url;
       posterSize = data.images.poster_sizes[2];
       console.log('fetched config:', data);
-
       loadTrending();
     })
     .catch(function (err) {
@@ -177,8 +176,10 @@ const getWatchListId = async () => {
 
 const main = async () => {
   await getWatchListId();
-  document.addEventListener('DOMContentLoaded', getConfig);
+  getConfig();
 }
 
-main();
+document.addEventListener('DOMContentLoaded', main);
+
+
 

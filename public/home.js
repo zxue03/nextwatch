@@ -148,12 +148,12 @@ function loadWatchlist() {
 
 
 const main = async () => {
-    await getConfig();
+    getConfig();
     await getWatchListId();
     await getWatchListMovie();
     loadWatchlist();
 }
 
-main();
+document.addEventListener('DOMContentLoaded', main);
 
 
