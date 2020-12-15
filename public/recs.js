@@ -24,89 +24,19 @@ function loadTrending() {
   fetch(url)
     .then(results => results.json())
     .then((data) => {
-      var getDiv, posterURL, toWrite = "";
-      document.getElementById('displayHeading').innerHTML = "<h2>Trending</h2>";
-      for (i = 0; i < data.results.length; i++) {
-        getDiv = 'top' + i;
-        posterURL = baseImageURL + posterSize + data.results[i].poster_path;
-        toWrite += '<img class="moviePoster"';
-        toWrite += 'src="' + posterURL + '">';
-
-        toWrite += '<div class="moreInfo">';
-        toWrite += '<div class="movieTitle">' + data.results[i].original_title + '</div>';
-        var overview
-        // if(data.results[i].overview.length > 320){
-        //   //trim the string to the maximum length
-        //   overview =data.results[i].overview.substr(0, 320);
-        //   //re-trim if we are in the middle of a word and 
-        //   overview = overview.substr(0, overview.lastIndexOf(".")+1) + ".."
-        // }
-        // else{
-          overview = data.results[i].overview;
-        // }
-        
-        toWrite += '<div class="synopsis">' + overview + '</div>';
-        
-        toWrite += '<input type="image" class="Button"';
-        //check if movie is already in there
-        currMovie = "" + data.results[i].id;
-        if (watchListId.indexOf(currMovie) != -1) {
-          toWrite += 'src="assets/added.png"';
-        } else {
-          toWrite += 'src="assets/add.png"';
-        }
-        toWrite += ' id="' + data.results[i].id + '">';
-        toWrite += '</div>';
-
-        document.getElementById(getDiv).innerHTML = toWrite;
-        toWrite = "";
-      }
-      console.log(data);
-
-      document.querySelectorAll('.Button').forEach(item => {
-        item.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const url = "/api/user/addMovie";
-          const data = {
-            movieId: e.target.id
-          };
-          const token = window.localStorage.getItem("movieAppToken");
-          const rawRes = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify(data),
-          });
-          if (rawRes.status == 200) {
-            const res = await rawRes.json();
-            console.log(res.message);
-            e.target.src = "assets/added.png";
-          } else {
-            console.log("Access Denied");
-            alert("Please login to add this movie to your watchlist");
-          }
-        });
-      });
-    })
-
-  url = "https://api.themoviedb.org/3/discover/movie?api_key=9aadfff8aa707747cec36dc03dfe8b0f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=35";
-  fetch(url)
-    .then(results => results.json())
-    .then((data) => {
-      console.log(data);
+      var movies = data.results;
+      loadMovies(movies, "Trending");
     })
 }
 
-function loadMovies(movies) {
-  var getDiv, posterURL, toWrite = "";
-  document.getElementById('displayHeading').innerHTML = "<h2>Our Recommendations</h2>";
+function loadMovies(movies, heading) {
+  document.getElementById('displayHeading').innerHTML = "<h2>" + heading + "</h2>";
 
+  var getDiv, posterURL, toWrite = "";
   for (i = 0; i < 20; i++) {
     getDiv = 'top' + i;
 
-    if ( i > movies.length - 1 || movies[i].poster_path == null) {
+    if (i > movies.length - 1 || movies[i].poster_path == null) {
       document.getElementById(getDiv).innerHTML = "";
     } else {
       posterURL = baseImageURL + posterSize + movies[i].poster_path;
@@ -116,13 +46,13 @@ function loadMovies(movies) {
       toWrite += '<div class="moreInfo">';
       toWrite += '<div class="movieTitle">' + movies[i].original_title + '</div>';
       var overview
-      if(movies[i].overview.length > 320){
+      if (movies[i].overview.length > 320) {
         //trim the string to the maximum length
         overview = movies[i].overview.substr(0, 320);
         //re-trim if we are in the middle of a word and 
-        overview = overview.substr(0, overview.lastIndexOf(".")+1) + ".."
+        overview = overview.substr(0, overview.lastIndexOf(".") + 1) + ".."
       }
-      else{
+      else {
         overview = movies[i].overview;
       }
       toWrite += '<div class="synopsis">' + overview + '</div>';
@@ -131,9 +61,9 @@ function loadMovies(movies) {
       //check if movie is already in there
       currMovie = "" + movies[i].id;
       if (watchListId.indexOf(currMovie) != -1) {
-        toWrite += 'src="assets/added.png"';
+        toWrite += 'src="assets/added.png" value="true"';
       } else {
-        toWrite += 'src="assets/add.png"';
+        toWrite += 'src="assets/add.png" value="false"';
       }
       toWrite += ' id="' + movies[i].id + '">';
       toWrite += '</div>';
@@ -171,12 +101,14 @@ function loadMovies(movies) {
   });
 }
 
-
 function searchPerson(person) {
   var personID;
 
   let url =
-    "https://api.themoviedb.org/3/search/person?api_key=9aadfff8aa707747cec36dc03dfe8b0f&language=en-US&query=" + person + "&page=1&include_adult=false";
+    "https://api.themoviedb.org/3/search/person?api_key=9aadfff8aa707747cec36dc03dfe8b0f&language=en-US&query="
+    + person
+    + "&page=1&include_adult=false";
+
   fetch(url)
     .then(results => results.json())
     .then((data) => {
@@ -202,7 +134,7 @@ function searchMood(moodIndex) {
     .then(results => results.json())
     .then((data) => {
       var movies = data.results;
-      loadMovies(movies);
+      loadMovies(movies, "Our Recommendations");
     })
     .catch(function (err) {
       alert(err);
@@ -220,7 +152,7 @@ function getMovies(personID) {
       if (movies.length <= 0) {
         alert("Sorry! No movies found with that actor/actress");
       } else {
-        loadMovies(movies);
+        loadMovies(movies, "Our Recommendations");
       }
     })
     .catch(function (err) {
@@ -230,15 +162,15 @@ function getMovies(personID) {
 }
 
 const getWatchListId = async () => {
-  if(token){
+  if (token) {
     const rawRes = await fetch("/api/user/watchList", {
       headers: {
-      "authorization": `Bearer ${token}`,
+        "authorization": `Bearer ${token}`,
       },
     });
     if (rawRes.status == 200) {
-        const res = await rawRes.json();
-        watchListId = res.watchList;
+      const res = await rawRes.json();
+      watchListId = res.watchList;
     }
   }
 };
@@ -248,6 +180,5 @@ const main = async () => {
 }
 
 main();
-
 
 document.addEventListener('DOMContentLoaded', getConfig);
