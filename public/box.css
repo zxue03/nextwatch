@@ -50,3 +50,9 @@
 .submit-button:hover {
     background-color: #ec911b;
 }
+
+@media screen and (max-width: 70px) {
+    .container-form {
+        width: 90%;
+    }
+}
