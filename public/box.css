@@ -56,6 +56,11 @@
         width: 90%;
     }
 
+    .big-logo {
+        height: 60px;
+        width: auto;
+    }
+
     .box-heading {
         font-size: 20px;
     }
