@@ -30,7 +30,7 @@ function loadTrending() {
 
 function loadMovies(movies, heading) {
   document.getElementById('displayHeading').innerHTML = "<h2>" + heading + "</h2>";
-
+console.log(movies);
   var getDiv, posterURL, toWrite = "";
   for (i = 0; i < 20; i++) {
     getDiv = 'top' + i;
@@ -43,7 +43,10 @@ function loadMovies(movies, heading) {
       toWrite += 'src="' + posterURL + '">';
 
       toWrite += '<div class="moreInfo">';
-      toWrite += '<div class="movieTitle">' + movies[i].original_title + '</div>';
+      toWrite += '<div class="movieTitle">' + movies[i].original_title;
+      date = movies[i].release_date;
+      console.log(date);
+      toWrite += ' (' + date.substring(0,4) + ')</div>';
       toWrite += '<div class="synopsis">' + movies[i].overview + '</div>';
 
       toWrite += '<input type="image" class="Button"';
