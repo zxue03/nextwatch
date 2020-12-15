@@ -66,9 +66,11 @@ logoutButton.addEventListener("click", () => {
 });
 
 // TRYING TO LOAD WATCHLIST POSTERS HERE
-function loadWatchlist() {
+function loadWatchlist(heading) {
     console.log(movies)
     console.log(movies.length)
+    document.getElementById('displayHeading').innerHTML = "<h2>" + heading + "</h2>";
+
     var watchListContent = ""
     var toWrite = "",
         divName;
@@ -151,7 +153,7 @@ const main = async () => {
     await getConfig();
     await getWatchListId();
     await getWatchListMovie();
-    loadWatchlist();
+    loadWatchlist("Your Watchlist");
 }
 
 document.addEventListener('DOMContentLoaded', main);

@@ -134,6 +134,7 @@ h1, h2 {
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 1;
     visibility: visible;
+    height: 100vh;
 }
 
 .nav-menu {
@@ -230,4 +231,12 @@ input:focus, select:focus {
     .home-link {
         font-size: 10vw;
     }
+}
+
+#watchListDiv {
+    padding-top: 20px;
+}
+
+#result {
+    padding-bottom: 20px;
 }
