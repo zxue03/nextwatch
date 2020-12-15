@@ -1,7 +1,7 @@
 const token = window.localStorage.getItem("movieAppToken");
 watchListId = []
 
-async function getConfig() {
+function getConfig() {
   let url = "https://api.themoviedb.org/3/configuration?api_key=9aadfff8aa707747cec36dc03dfe8b0f";
   fetch(url)
     .then((result) => {

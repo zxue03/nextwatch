@@ -25,7 +25,7 @@ const getWatchListId = async () => {
     }
 };
 
-const getConfig = async () => {
+const getConfig = () => {
     let url = "https://api.themoviedb.org/3/configuration?api_key=9aadfff8aa707747cec36dc03dfe8b0f";
     fetch(url)
       .then((result) => {
@@ -150,7 +150,7 @@ function loadWatchlist(heading) {
 
 
 const main = async () => {
-    await getConfig();
+    getConfig();
     await getWatchListId();
     await getWatchListMovie();
     loadWatchlist("Your Watchlist");
