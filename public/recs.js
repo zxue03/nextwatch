@@ -11,7 +11,6 @@ function getConfig() {
       baseImageURL = data.images.secure_base_url;
       posterSize = data.images.poster_sizes[2];
       console.log('fetched config:', data);
-
       loadTrending();
     })
     .catch(function (err) {
@@ -177,8 +176,10 @@ const getWatchListId = async () => {
 
 const main = async () => {
   await getWatchListId();
+  getConfig();
 }
 
-main();
+document.addEventListener('DOMContentLoaded', main);
 
-document.addEventListener('DOMContentLoaded', getConfig);
+
+
