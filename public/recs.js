@@ -177,8 +177,8 @@ const getWatchListId = async () => {
 
 const main = async () => {
   await getWatchListId();
+  document.addEventListener('DOMContentLoaded', getConfig);
 }
 
 main();
 
-document.addEventListener('DOMContentLoaded', getConfig);
